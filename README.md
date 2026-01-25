@@ -1,1 +1,1 @@
-# ShopCoffeeMVC
+# CoffeeShopMVC
