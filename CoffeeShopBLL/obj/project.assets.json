@@ -2903,19 +2903,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Rewan\\.nuget\\packages\\": {}
+    "C:\\Users\\spide\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Rewan\\source\\repos\\CoffeeShop\\CoffeeShopBLL\\CoffeeShopBLL.csproj",
+      "projectUniqueName": "D:\\iti-4months-fullstack using .net\\MVC\\Poject\\CoffeeShopBLL\\CoffeeShopBLL.csproj",
       "projectName": "CoffeeShopBLL",
-      "projectPath": "C:\\Users\\Rewan\\source\\repos\\CoffeeShop\\CoffeeShopBLL\\CoffeeShopBLL.csproj",
-      "packagesPath": "C:\\Users\\Rewan\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Rewan\\source\\repos\\CoffeeShop\\CoffeeShopBLL\\obj\\",
+      "projectPath": "D:\\iti-4months-fullstack using .net\\MVC\\Poject\\CoffeeShopBLL\\CoffeeShopBLL.csproj",
+      "packagesPath": "C:\\Users\\spide\\.nuget\\packages\\",
+      "outputPath": "D:\\iti-4months-fullstack using .net\\MVC\\Poject\\CoffeeShopBLL\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\Rewan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\spide\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -2923,15 +2928,14 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\Rewan\\source\\repos\\CoffeeShop\\CoffeeShopDAL\\CoffeeShopDAL.csproj": {
-              "projectPath": "C:\\Users\\Rewan\\source\\repos\\CoffeeShop\\CoffeeShopDAL\\CoffeeShopDAL.csproj"
+            "D:\\iti-4months-fullstack using .net\\MVC\\Poject\\CoffeeShopDAL\\CoffeeShopDAL.csproj": {
+              "projectPath": "D:\\iti-4months-fullstack using .net\\MVC\\Poject\\CoffeeShopDAL\\CoffeeShopDAL.csproj"
             }
           }
         }
@@ -2945,7 +2949,8 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "direct"
-      }
+      },
+      "SdkAnalysisLevel": "9.0.300"
     },
     "frameworks": {
       "net8.0": {
@@ -2966,7 +2971,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.302/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
