@@ -1,5 +1,9 @@
+using CoffeeShopBLL.Services.Classes;
+using CoffeeShopBLL.Services.Interfaces;
 using CoffeeShopDAL.Data;
 using CoffeeShopDAL.Entities;
+using CoffeeShopDAL.Repositories.Classes;
+using CoffeeShopDAL.Repositories.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,7 +22,10 @@ namespace CoffeeShopPL
             });
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<CoffeeShopDbContext>()
-                .AddDefaultTokenProviders(); 
+                .AddDefaultTokenProviders();
+            builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+            builder.Services.AddScoped<ICategoryService, CategoryService>();
+
 
             var app = builder.Build();
 
