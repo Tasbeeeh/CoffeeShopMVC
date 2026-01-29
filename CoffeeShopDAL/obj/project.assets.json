@@ -4176,23 +4176,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\spide\\.nuget\\packages\\": {},
+    "C:\\Users\\tasbi\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\iti-4months-fullstack using .net\\MVC\\Poject\\CoffeeShopDAL\\CoffeeShopDAL.csproj",
+      "projectUniqueName": "E:\\ITI\\MVC\\CoffeeShopMVCproject\\CoffeeShopMVC\\CoffeeShopDAL\\CoffeeShopDAL.csproj",
       "projectName": "CoffeeShopDAL",
-      "projectPath": "D:\\iti-4months-fullstack using .net\\MVC\\Poject\\CoffeeShopDAL\\CoffeeShopDAL.csproj",
-      "packagesPath": "C:\\Users\\spide\\.nuget\\packages\\",
-      "outputPath": "D:\\iti-4months-fullstack using .net\\MVC\\Poject\\CoffeeShopDAL\\obj\\",
+      "projectPath": "E:\\ITI\\MVC\\CoffeeShopMVCproject\\CoffeeShopMVC\\CoffeeShopDAL\\CoffeeShopDAL.csproj",
+      "packagesPath": "C:\\Users\\tasbi\\.nuget\\packages\\",
+      "outputPath": "E:\\ITI\\MVC\\CoffeeShopMVCproject\\CoffeeShopMVC\\CoffeeShopDAL\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\spide\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\tasbi\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -4256,7 +4256,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

@@ -27,3 +27,18 @@ D:\iti-4months-fullstack using .net\MVC\Poject\CoffeeShopDAL\obj\Debug\net8.0\re
 D:\iti-4months-fullstack using .net\MVC\Poject\CoffeeShopDAL\obj\Debug\net8.0\CoffeeShopDAL.pdb
 D:\iti-4months-fullstack using .net\MVC\Poject\CoffeeShopDAL\obj\Debug\net8.0\CoffeeShopDAL.genruntimeconfig.cache
 D:\iti-4months-fullstack using .net\MVC\Poject\CoffeeShopDAL\obj\Debug\net8.0\ref\CoffeeShopDAL.dll
+E:\ITI\MVC\CoffeeShopMVCproject\CoffeeShopMVC\CoffeeShopDAL\bin\Debug\net8.0\CoffeeShopDAL.deps.json
+E:\ITI\MVC\CoffeeShopMVCproject\CoffeeShopMVC\CoffeeShopDAL\bin\Debug\net8.0\CoffeeShopDAL.runtimeconfig.json
+E:\ITI\MVC\CoffeeShopMVCproject\CoffeeShopMVC\CoffeeShopDAL\bin\Debug\net8.0\CoffeeShopDAL.dll
+E:\ITI\MVC\CoffeeShopMVCproject\CoffeeShopMVC\CoffeeShopDAL\bin\Debug\net8.0\CoffeeShopDAL.pdb
+E:\ITI\MVC\CoffeeShopMVCproject\CoffeeShopMVC\CoffeeShopDAL\obj\Debug\net8.0\CoffeeShopDAL.csproj.AssemblyReference.cache
+E:\ITI\MVC\CoffeeShopMVCproject\CoffeeShopMVC\CoffeeShopDAL\obj\Debug\net8.0\CoffeeShopDAL.GeneratedMSBuildEditorConfig.editorconfig
+E:\ITI\MVC\CoffeeShopMVCproject\CoffeeShopMVC\CoffeeShopDAL\obj\Debug\net8.0\CoffeeShopDAL.AssemblyInfoInputs.cache
+E:\ITI\MVC\CoffeeShopMVCproject\CoffeeShopMVC\CoffeeShopDAL\obj\Debug\net8.0\CoffeeShopDAL.AssemblyInfo.cs
+E:\ITI\MVC\CoffeeShopMVCproject\CoffeeShopMVC\CoffeeShopDAL\obj\Debug\net8.0\CoffeeShopDAL.csproj.CoreCompileInputs.cache
+E:\ITI\MVC\CoffeeShopMVCproject\CoffeeShopMVC\CoffeeShopDAL\obj\Debug\net8.0\CoffeeShopDAL.sourcelink.json
+E:\ITI\MVC\CoffeeShopMVCproject\CoffeeShopMVC\CoffeeShopDAL\obj\Debug\net8.0\CoffeeShopDAL.dll
+E:\ITI\MVC\CoffeeShopMVCproject\CoffeeShopMVC\CoffeeShopDAL\obj\Debug\net8.0\refint\CoffeeShopDAL.dll
+E:\ITI\MVC\CoffeeShopMVCproject\CoffeeShopMVC\CoffeeShopDAL\obj\Debug\net8.0\CoffeeShopDAL.pdb
+E:\ITI\MVC\CoffeeShopMVCproject\CoffeeShopMVC\CoffeeShopDAL\obj\Debug\net8.0\CoffeeShopDAL.genruntimeconfig.cache
+E:\ITI\MVC\CoffeeShopMVCproject\CoffeeShopMVC\CoffeeShopDAL\obj\Debug\net8.0\ref\CoffeeShopDAL.dll

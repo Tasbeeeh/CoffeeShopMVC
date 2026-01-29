@@ -1,0 +1,60 @@
+﻿@using CoffeeShopBLL.ModelVMs.Product
+@model List<ProductVM>
+
+@{
+    ViewData["Title"] = "products";
+}
+
+<h1>Products</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Add New Product</a>
+</p>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>ProductSize</th>
+            <th>Price</th>
+            <th>InStock</th>
+            <th>Quantity</th>
+            <th>Category</th>
+            <th>Image</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            int count = 1;
+            foreach (var product in Model)
+            {
+                <tr>
+                    <td>@count</td>
+                    <td>@product.Name</td>
+                    <td>@product.Description</td>
+                    <td>@product.ProductSize</td>
+                    <td>@product.Price</td>
+                    <td>@product.InStock</td>
+                    <td>@product.Quantity</td>
+                    <td>@(product.CategoryName ?? "No Category")</td>
+                    <td>@product.Image</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@product.Id" class="btn btn-sm btn-warning">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@product.Id" class="btn btn-sm btn-danger">Delete</a>
+                    </td>
+                </tr>
+                count++;
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="3" class="text-center">No Product Found</td>
+            </tr>
+        }
+    </tbody>
+</table>
