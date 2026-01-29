@@ -1,0 +1,52 @@
+﻿@model CoffeeShopBLL.ModelVMs.Order.OrderVM
+
+@{
+    ViewData["Title"] = "Edit Order";
+}
+
+<h1>Edit Order</h1>
+
+<form asp-action="Edit">
+    <input asp-for="Id" type="hidden" />
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="form-group mb-2">
+        <label asp-for="TotalPrice" class="control-label"></label>
+        <input asp-for="TotalPrice" class="form-control" />
+    </div>
+
+    <div class="form-group mb-2">
+        <label asp-for="OrderDate" class="control-label"></label>
+        <input asp-for="OrderDate" type="date" class="form-control" />
+    </div>
+
+    <div class="form-group mb-2">
+        <label asp-for="OrderStatus" class="control-label"></label>
+        <select asp-for="OrderStatus"
+                asp-items="Html.GetEnumSelectList<CoffeeShopDAL.Entities.Enums.OrderStatus>()"
+                class="form-control">
+        </select>
+    </div>
+
+    <div class="form-group mb-2">
+        <label asp-for="UserId" class="control-label"></label>
+        <input asp-for="UserId" class="form-control" />
+    </div>
+
+    <div class="form-group mb-2">
+        <label asp-for="CartId" class="control-label"></label>
+        <input asp-for="CartId" class="form-control" />
+    </div>
+
+    <div class="form-group mt-3">
+        <input type="submit" value="Save" class="btn btn-primary" />
+        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
