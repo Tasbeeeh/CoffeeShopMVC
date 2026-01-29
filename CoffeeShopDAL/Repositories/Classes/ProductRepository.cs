@@ -1,6 +1,7 @@
 ﻿using CoffeeShopDAL.Data;
 using CoffeeShopDAL.Entities;
 using CoffeeShopDAL.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,7 +36,7 @@ namespace CoffeeShopDAL.Repositories.Classes
 
         public List<Product> GetAll()
         {
-            return _context.Products.ToList();
+            return _context.Products.Include(p => p.Category).ToList();
         }
        
 
