@@ -16,8 +16,8 @@ namespace CoffeeShopBLL.ModelVMs.Product
 
         public ProductSize ProductSize { get; set; }
         public decimal Price { get; set; }
-        public bool InStock { get; set; }
         public int? Quantity { get; set; }
+        public bool InStock => Quantity != 0;
         public int CategoryId { get; set; }
         public string? CategoryName { get; set; }
     }

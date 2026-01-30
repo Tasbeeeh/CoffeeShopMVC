@@ -10,6 +10,7 @@ namespace CoffeeShopDAL.Entities
     {
         public int Id { get; set; }
         public string Name { get; set; } = null!;
+        public string? Image { get; set; }
 
         //relations
         public ICollection<Product> Products { get; set; } = null!;

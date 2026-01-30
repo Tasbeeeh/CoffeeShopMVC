@@ -17,11 +17,43 @@ namespace CoffeeShopPL.Controllers
             _categoryService = categoryService;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string? searchTerm, string? categoryName, int pageNumber = 1, int pageSize = 10)
         {
-           var products= _productService.GetAll();
-            return View("Index",products);
+            var products = _productService.GetAll();
+            var categories = _categoryService.GetAll();
+            ViewBag.Categories = new SelectList(categories, "Name", "Name", categoryName);
+
+            if (!string.IsNullOrEmpty(categoryName))
+            {
+                products = _productService.GetProductsByCategoryName(categoryName);
+            }
+
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                products = _productService.Search(searchTerm);
+            }
+
+            var totalItems = products.Count;
+            var totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+
+            // Pagination
+            var pagedProducts = products
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            ViewBag.CurrentPage = pageNumber;
+            ViewBag.PageSize = pageSize;
+            ViewBag.TotalItems = totalItems;
+            ViewBag.TotalPages = totalPages;
+
+            ViewBag.SearchTerm = searchTerm;
+            ViewBag.CategoryName = categoryName;
+
+            return View("Index", pagedProducts);
         }
+
+
         [HttpGet]
         public IActionResult Create()
         {

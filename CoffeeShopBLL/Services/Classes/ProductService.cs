@@ -30,7 +30,7 @@ namespace CoffeeShopBLL.Services.Classes
                 Image = obj.Image,
                 ProductSize = obj.ProductSize,
                 Price = obj.Price,
-                InStock = obj.InStock,
+                //InStock = obj.InStock,
                 Quantity = obj.Quantity,
                 CategoryId = obj.CategoryId
             };
@@ -53,7 +53,7 @@ namespace CoffeeShopBLL.Services.Classes
                 Image = obj.Image,
                 ProductSize = obj.ProductSize,
                 Price = obj.Price,
-                InStock = obj.InStock,
+                //InStock = obj.InStock,
                 Quantity = obj.Quantity,
                 CategoryId = obj.CategoryId
 
@@ -71,9 +71,19 @@ namespace CoffeeShopBLL.Services.Classes
             return _productRepository.GetById(id).ProductMap();
         }
 
+        public List<ProductVM> GetProductsByCategoryName(string categoryName)
+        {
+           return _productRepository.GetProductsByCategory(categoryName).Select(p=>p.ProductMap()).ToList();
+        }
+
         public int Save()
         {
            return _productRepository.Save();
+        }
+
+        public List<ProductVM> Search(string term)
+        {
+            return _productRepository.Search(term).Select(p=>p.ProductMap()).ToList();
         }
     }
 }

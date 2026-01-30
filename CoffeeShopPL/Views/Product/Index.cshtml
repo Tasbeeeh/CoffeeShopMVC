@@ -2,7 +2,7 @@
 @model List<ProductVM>
 
 @{
-    ViewData["Title"] = "products";
+    ViewData["Title"] = "Products";
 }
 
 <h1>Products</h1>
@@ -10,6 +10,34 @@
 <p>
     <a asp-action="Create" class="btn btn-primary">Add New Product</a>
 </p>
+
+<form method="get" asp-action="Index" class="mb-3">
+    <input type="text" name="searchTerm"
+           value="@(ViewBag.SearchTerm ?? "")"
+           placeholder="Search products..."
+           class="form-control w-25 d-inline" />
+
+    <select name="categoryName" class="form-control w-25 d-inline">
+        <option value="">-- All Categories --</option>
+        @foreach (var cat in ViewBag.Categories as SelectList)
+        {
+            if (cat.Value == (ViewBag.CategoryName ?? ""))
+            {
+                <option value="@cat.Value" selected>@cat.Text</option>
+            }
+            else
+            {
+                <option value="@cat.Value">@cat.Text</option>
+            }
+        }
+    </select>
+
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
+
+
+
+
 
 <table class="table table-bordered table-striped">
     <thead>
@@ -29,7 +57,7 @@
     <tbody>
         @if (Model != null && Model.Any())
         {
-            int count = 1;
+            int count = 1 + ((ViewBag.CurrentPage - 1) * ViewBag.PageSize);
             foreach (var product in Model)
             {
                 <tr>
@@ -38,7 +66,19 @@
                     <td>@product.Description</td>
                     <td>@product.ProductSize</td>
                     <td>@product.Price</td>
-                    <td>@product.InStock</td>
+                    
+                    <td>
+                        @if (product.InStock)
+                        {
+                            <span class="text-success">Available</span>
+                        }
+                        else
+                        {
+                            <span class="text-danger">Out of Stock</span>
+                        }
+                    </td>
+
+                    
                     <td>@product.Quantity</td>
                     <td>@(product.CategoryName ?? "No Category")</td>
                     <td>@product.Image</td>
@@ -53,8 +93,51 @@
         else
         {
             <tr>
-                <td colspan="3" class="text-center">No Product Found</td>
+                <td colspan="10" class="text-center">No Product Found</td>
             </tr>
         }
     </tbody>
 </table>
+
+<nav>
+    <ul class="pagination">
+        @if (ViewBag.CurrentPage > 1)
+        {
+            <li class="page-item">
+                <a class="page-link"
+                   asp-action="Index"
+                   asp-route-pageNumber="@(ViewBag.CurrentPage - 1)"
+                   asp-route-searchTerm="@ViewBag.SearchTerm"
+                   asp-route-categoryName="@ViewBag.CategoryName">
+                    Previous
+                </a>
+            </li>
+        }
+
+        @for (int i = 1; i <= ViewBag.TotalPages; i++)
+        {
+            <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                <a class="page-link"
+                   asp-action="Index"
+                   asp-route-pageNumber="@i"
+                   asp-route-searchTerm="@ViewBag.SearchTerm"
+                   asp-route-categoryName="@ViewBag.CategoryName">
+                    @i
+                </a>
+            </li>
+        }
+
+        @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+        {
+            <li class="page-item">
+                <a class="page-link"
+                   asp-action="Index"
+                   asp-route-pageNumber="@(ViewBag.CurrentPage + 1)"
+                   asp-route-searchTerm="@ViewBag.SearchTerm"
+                   asp-route-categoryName="@ViewBag.CategoryName">
+                    Next
+                </a>
+            </li>
+        }
+    </ul>
+</nav>

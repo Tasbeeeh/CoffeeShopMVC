@@ -16,5 +16,7 @@ namespace CoffeeShopBLL.Services.Interfaces
         void Edit(ProductVM Obj);
         void Delete(int id);
         int Save();
+        List<ProductVM> Search(string term);
+        List<ProductVM> GetProductsByCategoryName(string categoryName);
     }
 }

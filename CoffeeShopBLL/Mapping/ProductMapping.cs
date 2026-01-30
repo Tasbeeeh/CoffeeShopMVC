@@ -18,7 +18,7 @@ namespace CoffeeShopBLL.Mapping
                 Name = product.Name,
                 Description = product.Description,
                 Image = product.Image,
-                InStock = product.InStock,
+                //InStock = product.InStock,
                 Price = product.Price,
                 ProductSize = product.ProductSize,
                 Quantity = product.Quantity,
