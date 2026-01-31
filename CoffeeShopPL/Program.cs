@@ -29,7 +29,8 @@ namespace CoffeeShopPL
             builder.Services.AddScoped<IProductService, ProductService>();
             builder.Services.AddScoped<IOrderRepository, OrderRepository>();
             builder.Services.AddScoped<IOrderService, OrderService>();
-
+            builder.Services.AddScoped<ICartItemRepository, CartItemRepository>();
+            builder.Services.AddScoped<ICartItemService, CartItemService>();
 
 
             var app = builder.Build();
