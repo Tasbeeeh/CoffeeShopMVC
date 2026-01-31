@@ -1,3 +1,4 @@
+using CoffeeShopBLL.Services.AuthService;
 using CoffeeShopBLL.Services.Classes;
 using CoffeeShopBLL.Services.Interfaces;
 using CoffeeShopDAL.Data;
@@ -25,6 +26,7 @@ namespace CoffeeShopPL
                 .AddDefaultTokenProviders();
             builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
             builder.Services.AddScoped<ICategoryService, CategoryService>();
+            builder.Services.AddScoped<AuthService>();
 
 
             var app = builder.Build();

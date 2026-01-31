@@ -27,3 +27,18 @@ D:\iti-4months-fullstack using .net\MVC\Poject\CoffeeShopDAL\obj\Debug\net8.0\re
 D:\iti-4months-fullstack using .net\MVC\Poject\CoffeeShopDAL\obj\Debug\net8.0\CoffeeShopDAL.pdb
 D:\iti-4months-fullstack using .net\MVC\Poject\CoffeeShopDAL\obj\Debug\net8.0\CoffeeShopDAL.genruntimeconfig.cache
 D:\iti-4months-fullstack using .net\MVC\Poject\CoffeeShopDAL\obj\Debug\net8.0\ref\CoffeeShopDAL.dll
+C:\Users\mosta\OneDrive\Desktop\mvcCoffeeShop\CoffeeShopMVC\CoffeeShopDAL\bin\Debug\net8.0\CoffeeShopDAL.deps.json
+C:\Users\mosta\OneDrive\Desktop\mvcCoffeeShop\CoffeeShopMVC\CoffeeShopDAL\bin\Debug\net8.0\CoffeeShopDAL.runtimeconfig.json
+C:\Users\mosta\OneDrive\Desktop\mvcCoffeeShop\CoffeeShopMVC\CoffeeShopDAL\bin\Debug\net8.0\CoffeeShopDAL.dll
+C:\Users\mosta\OneDrive\Desktop\mvcCoffeeShop\CoffeeShopMVC\CoffeeShopDAL\bin\Debug\net8.0\CoffeeShopDAL.pdb
+C:\Users\mosta\OneDrive\Desktop\mvcCoffeeShop\CoffeeShopMVC\CoffeeShopDAL\obj\Debug\net8.0\CoffeeShopDAL.csproj.AssemblyReference.cache
+C:\Users\mosta\OneDrive\Desktop\mvcCoffeeShop\CoffeeShopMVC\CoffeeShopDAL\obj\Debug\net8.0\CoffeeShopDAL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\mosta\OneDrive\Desktop\mvcCoffeeShop\CoffeeShopMVC\CoffeeShopDAL\obj\Debug\net8.0\CoffeeShopDAL.AssemblyInfoInputs.cache
+C:\Users\mosta\OneDrive\Desktop\mvcCoffeeShop\CoffeeShopMVC\CoffeeShopDAL\obj\Debug\net8.0\CoffeeShopDAL.AssemblyInfo.cs
+C:\Users\mosta\OneDrive\Desktop\mvcCoffeeShop\CoffeeShopMVC\CoffeeShopDAL\obj\Debug\net8.0\CoffeeShopDAL.csproj.CoreCompileInputs.cache
+C:\Users\mosta\OneDrive\Desktop\mvcCoffeeShop\CoffeeShopMVC\CoffeeShopDAL\obj\Debug\net8.0\CoffeeShopDAL.sourcelink.json
+C:\Users\mosta\OneDrive\Desktop\mvcCoffeeShop\CoffeeShopMVC\CoffeeShopDAL\obj\Debug\net8.0\CoffeeShopDAL.dll
+C:\Users\mosta\OneDrive\Desktop\mvcCoffeeShop\CoffeeShopMVC\CoffeeShopDAL\obj\Debug\net8.0\refint\CoffeeShopDAL.dll
+C:\Users\mosta\OneDrive\Desktop\mvcCoffeeShop\CoffeeShopMVC\CoffeeShopDAL\obj\Debug\net8.0\CoffeeShopDAL.pdb
+C:\Users\mosta\OneDrive\Desktop\mvcCoffeeShop\CoffeeShopMVC\CoffeeShopDAL\obj\Debug\net8.0\CoffeeShopDAL.genruntimeconfig.cache
+C:\Users\mosta\OneDrive\Desktop\mvcCoffeeShop\CoffeeShopMVC\CoffeeShopDAL\obj\Debug\net8.0\ref\CoffeeShopDAL.dll

@@ -29,3 +29,19 @@ D:\iti-4months-fullstack using .net\MVC\Poject\CoffeeShopBLL\obj\Debug\net8.0\Co
 D:\iti-4months-fullstack using .net\MVC\Poject\CoffeeShopBLL\obj\Debug\net8.0\refint\CoffeeShopBLL.dll
 D:\iti-4months-fullstack using .net\MVC\Poject\CoffeeShopBLL\obj\Debug\net8.0\CoffeeShopBLL.pdb
 D:\iti-4months-fullstack using .net\MVC\Poject\CoffeeShopBLL\obj\Debug\net8.0\ref\CoffeeShopBLL.dll
+C:\Users\mosta\OneDrive\Desktop\mvcCoffeeShop\CoffeeShopMVC\CoffeeShopBLL\bin\Debug\net8.0\CoffeeShopBLL.deps.json
+C:\Users\mosta\OneDrive\Desktop\mvcCoffeeShop\CoffeeShopMVC\CoffeeShopBLL\bin\Debug\net8.0\CoffeeShopBLL.dll
+C:\Users\mosta\OneDrive\Desktop\mvcCoffeeShop\CoffeeShopMVC\CoffeeShopBLL\bin\Debug\net8.0\CoffeeShopBLL.pdb
+C:\Users\mosta\OneDrive\Desktop\mvcCoffeeShop\CoffeeShopMVC\CoffeeShopBLL\bin\Debug\net8.0\CoffeeShopDAL.dll
+C:\Users\mosta\OneDrive\Desktop\mvcCoffeeShop\CoffeeShopMVC\CoffeeShopBLL\bin\Debug\net8.0\CoffeeShopDAL.pdb
+C:\Users\mosta\OneDrive\Desktop\mvcCoffeeShop\CoffeeShopMVC\CoffeeShopBLL\obj\Debug\net8.0\CoffeeShopBLL.csproj.AssemblyReference.cache
+C:\Users\mosta\OneDrive\Desktop\mvcCoffeeShop\CoffeeShopMVC\CoffeeShopBLL\obj\Debug\net8.0\CoffeeShopBLL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\mosta\OneDrive\Desktop\mvcCoffeeShop\CoffeeShopMVC\CoffeeShopBLL\obj\Debug\net8.0\CoffeeShopBLL.AssemblyInfoInputs.cache
+C:\Users\mosta\OneDrive\Desktop\mvcCoffeeShop\CoffeeShopMVC\CoffeeShopBLL\obj\Debug\net8.0\CoffeeShopBLL.AssemblyInfo.cs
+C:\Users\mosta\OneDrive\Desktop\mvcCoffeeShop\CoffeeShopMVC\CoffeeShopBLL\obj\Debug\net8.0\CoffeeShopBLL.csproj.CoreCompileInputs.cache
+C:\Users\mosta\OneDrive\Desktop\mvcCoffeeShop\CoffeeShopMVC\CoffeeShopBLL\obj\Debug\net8.0\CoffeeShopBLL.sourcelink.json
+C:\Users\mosta\OneDrive\Desktop\mvcCoffeeShop\CoffeeShopMVC\CoffeeShopBLL\obj\Debug\net8.0\CoffeeSh.E8C914CC.Up2Date
+C:\Users\mosta\OneDrive\Desktop\mvcCoffeeShop\CoffeeShopMVC\CoffeeShopBLL\obj\Debug\net8.0\CoffeeShopBLL.dll
+C:\Users\mosta\OneDrive\Desktop\mvcCoffeeShop\CoffeeShopMVC\CoffeeShopBLL\obj\Debug\net8.0\refint\CoffeeShopBLL.dll
+C:\Users\mosta\OneDrive\Desktop\mvcCoffeeShop\CoffeeShopMVC\CoffeeShopBLL\obj\Debug\net8.0\CoffeeShopBLL.pdb
+C:\Users\mosta\OneDrive\Desktop\mvcCoffeeShop\CoffeeShopMVC\CoffeeShopBLL\obj\Debug\net8.0\ref\CoffeeShopBLL.dll

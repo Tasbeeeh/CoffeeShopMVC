@@ -11,7 +11,7 @@ namespace CoffeeShopDAL.Entities
 {
     public class ApplicationUser :IdentityUser
     {
-        public Address Address { get; set; } = null!;
+        public Address Address { get; set; } = null!; 
         
         //relations
         public Cart Cart { get; set; } = null!;
