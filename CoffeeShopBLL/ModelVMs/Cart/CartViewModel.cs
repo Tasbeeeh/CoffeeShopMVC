@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace CoffeeShopBLL.ModelVMs.Cart
 {
-    internal class CartViewModel
+    public class CartViewModel
     {
+        public int Id { get; set; }
+        public decimal TotalPrice { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
     }
 }

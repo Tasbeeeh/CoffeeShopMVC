@@ -12,15 +12,18 @@ namespace CoffeeShopPL.Controllers
         public CategoryController(ICategoryService categoryService) {
            _categoryService = categoryService;
         }
+
         public IActionResult Index()
         {
             var categories = _categoryService.GetAll();
             return View(categories);
         }
+
         [HttpGet]
         public IActionResult Create() { 
             return View();
         }
+
         [HttpPost]
         public IActionResult Create(CategoryVM categoryVM)
         {
