@@ -502,6 +502,7 @@ C:\Users\mosta\OneDrive\Desktop\mvcCoffeeShop\CoffeeShopMVC\CoffeeShopPL\bin\Deb
 C:\Users\mosta\OneDrive\Desktop\mvcCoffeeShop\CoffeeShopMVC\CoffeeShopPL\bin\Debug\net8.0\System.Reflection.MetadataLoadContext.dll
 C:\Users\mosta\OneDrive\Desktop\mvcCoffeeShop\CoffeeShopMVC\CoffeeShopPL\bin\Debug\net8.0\System.Runtime.Caching.dll
 C:\Users\mosta\OneDrive\Desktop\mvcCoffeeShop\CoffeeShopMVC\CoffeeShopPL\bin\Debug\net8.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\mosta\OneDrive\Desktop\mvcCoffeeShop\CoffeeShopMVC\CoffeeShopPL\bin\Debug\net8.0\System.Security.Permissions.dll
 C:\Users\mosta\OneDrive\Desktop\mvcCoffeeShop\CoffeeShopMVC\CoffeeShopPL\bin\Debug\net8.0\af\Humanizer.resources.dll
 C:\Users\mosta\OneDrive\Desktop\mvcCoffeeShop\CoffeeShopMVC\CoffeeShopPL\bin\Debug\net8.0\ar\Humanizer.resources.dll
 C:\Users\mosta\OneDrive\Desktop\mvcCoffeeShop\CoffeeShopMVC\CoffeeShopPL\bin\Debug\net8.0\az\Humanizer.resources.dll
@@ -679,4 +680,3 @@ C:\Users\mosta\OneDrive\Desktop\mvcCoffeeShop\CoffeeShopMVC\CoffeeShopPL\obj\Deb
 C:\Users\mosta\OneDrive\Desktop\mvcCoffeeShop\CoffeeShopMVC\CoffeeShopPL\obj\Debug\net8.0\CoffeeShopPL.pdb
 C:\Users\mosta\OneDrive\Desktop\mvcCoffeeShop\CoffeeShopMVC\CoffeeShopPL\obj\Debug\net8.0\CoffeeShopPL.genruntimeconfig.cache
 C:\Users\mosta\OneDrive\Desktop\mvcCoffeeShop\CoffeeShopMVC\CoffeeShopPL\obj\Debug\net8.0\ref\CoffeeShopPL.dll
-C:\Users\mosta\OneDrive\Desktop\mvcCoffeeShop\CoffeeShopMVC\CoffeeShopPL\bin\Debug\net8.0\System.Security.Permissions.dll
