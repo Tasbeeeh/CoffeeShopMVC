@@ -1,0 +1,44 @@
+﻿@using CoffeeShopBLL.ModelVMs.CartItem
+@model List<CartItemVM>
+
+<h2>My Cart</h2>
+
+<table class="table table-bordered">
+    <tr>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>Unit Price</th>
+        <th>Total</th>
+        <th>Action</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.ProductName</td>
+            <td>
+                <form asp-action="UpdateQuantity" method="post">
+                    <input type="hidden" name="cartId" value="@item.CartId" />
+                    <input type="hidden" name="productId" value="@item.ProductId" />
+
+                    <input type="number" name="Quantity"
+                           value="@item.Quantity" min="1" />
+
+                    <button class="btn btn-sm btn-primary">Update</button>
+                </form>
+            </td>
+
+            <td>@item.UnitPrice</td>
+            <td>@item.TotalPrice</td>
+
+            <td>
+                <a asp-action="Delete"
+                   asp-route-cartId="@item.CartId"
+                   asp-route-productId="@item.ProductId"
+                   class="btn btn-sm btn-danger">
+                    Remove
+                </a>
+            </td>
+        </tr>
+    }
+</table>
