@@ -1,0 +1,55 @@
+﻿@using CoffeeShopBLL.ModelVMs.Product
+@model ProducsPerPageVM
+
+<div class="row">
+@foreach (var p in Model.Products)
+{
+        <div class="col-md-3 d-flex justify-content-center">
+            <a asp-controller="Product"
+           asp-action="Details"
+           asp-route-id="@p.Id"
+           class="text-decoration-none w-100">
+            <div class="card text-center mb-2" style="width: 100%;" >
+                <img src="~/assets/img/@p.Image"
+                     class="card-img-top mx-auto mt-3"
+                     style="width:200px; height:200px; object-fit:cover;" />
+
+                <div class="card-body">
+                    <h6 class="card border-0 text-secondary">@p.Name</h6>
+                    <p class="card-text">@p.Description</p>
+                    <p class="fw-bold text-secondary">
+                        @p.Price.ToString("0.00") EGP
+                    </p>
+                </div>
+            </div>
+            </a>
+
+        </div>
+
+}
+</div>
+
+<nav>
+    <ul class="pagination">
+        @* @if (Model.HasPrevious)
+        {
+            <li class="page-item">
+                <a class="page-link" asp-action="Browse" asp-route-page="@(Model.Page - 1)">Prev</a>
+            </li>
+        } *@
+
+        @for (int i = 1; i <= Model.TotalPages; i++)
+        {
+            <li class="page-item @(i == Model.Page ? "active" : "")">
+                <a class="page-link" asp-action="Browse" asp-route-page="@i">@i</a>
+            </li>
+        }
+
+        @* @if (Model.HasNext)
+        {
+            <li class="page-item">
+                <a class="page-link" asp-action="Browse" asp-route-page="@(Model.Page + 1)">Next</a>
+            </li>
+        } *@
+    </ul>
+</nav>

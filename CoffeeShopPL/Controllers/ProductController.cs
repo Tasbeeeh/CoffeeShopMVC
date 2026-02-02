@@ -22,6 +22,13 @@ namespace CoffeeShopPL.Controllers
            var products= _productService.GetAll();
             return View("Index",products);
         }
+        public IActionResult Browse(int page = 1)
+        {
+            int pageSize = 8;
+
+            var result = _productService.GetProductsPerPage(page, pageSize);
+            return View(result);
+        }
         [HttpGet]
         public IActionResult Create()
         {
@@ -29,16 +36,40 @@ namespace CoffeeShopPL.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(ProductVM productVM)
+        public IActionResult Create(ProductVM productVM,IFormFile img)
         {
+            string imgName = null;
+            if (img != null)
+            {
+                imgName = Guid.NewGuid().ToString() + Path.GetExtension(img.FileName);
+                string folder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot",
+                                "assets",
+                                "img");
+                string fullPath = Path.Combine(folder, imgName);
+
+                using (var stream = new FileStream(fullPath, FileMode.Create))
+                {
+                    img.CopyTo(stream);
+                }
+            }
             if (ModelState.IsValid)
             {
-                _productService.Add(productVM);
+                _productService.Add(productVM, imgName);
                 _productService.Save();
                 return RedirectToAction("Index");
             }
             return View("Create", productVM);
         }
+        public IActionResult Details(int id)
+        {
+            var product = _productService.GetById(id);
+
+            if (product == null)
+                return NotFound();
+
+            return View("Details",product);
+        }
+
 
         public IActionResult Delete(int id) 
         {

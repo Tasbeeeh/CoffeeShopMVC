@@ -1,4 +1,5 @@
-﻿using CoffeeShopBLL.Mapping;
+﻿using Azure;
+using CoffeeShopBLL.Mapping;
 using CoffeeShopBLL.ModelVMs.Product;
 using CoffeeShopBLL.Services.Interfaces;
 using CoffeeShopDAL.Entities;
@@ -21,13 +22,13 @@ namespace CoffeeShopBLL.Services.Classes
             _productRepository = productRepository;
         }
 
-        public void Add(ProductVM obj)
+        public void Add(ProductVM obj, string imgPath)
         {
             Product product = new Product
             {
                 Name = obj.Name,
                 Description = obj.Description,
-                Image = obj.Image,
+                Image = imgPath,
                 ProductSize = obj.ProductSize,
                 Price = obj.Price,
                 InStock = obj.InStock,
@@ -65,7 +66,6 @@ namespace CoffeeShopBLL.Services.Classes
         {
            return  _productRepository.GetAll().Select(p=>p.ProductMap()).ToList();
         }
-
         public ProductVM GetById(int id)
         {
             return _productRepository.GetById(id).ProductMap();
@@ -74,6 +74,30 @@ namespace CoffeeShopBLL.Services.Classes
         public int Save()
         {
            return _productRepository.Save();
+        }
+
+        public ProducsPerPageVM GetProductsPerPage(int page, int pageSize)
+        {
+             int totalCount = _productRepository.GetAll().Count();
+            int totalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
+            var products = GetAll().OrderBy(p => p.Id)
+                                    .Skip((page - 1) * pageSize)
+                                    .Take(pageSize)
+                                    .Select(p => new ProductVM
+                                    {
+                                        Id = p.Id,
+                                        Name = p.Name,
+                                        Description = p.Description,
+                                        Price = p.Price,
+                                        Image = p.Image
+                                    })
+                                    .ToList();
+            return new ProducsPerPageVM
+            {
+                Products = products,
+                Page = page,
+                TotalPages = totalPages
+            };
         }
     }
 }

@@ -12,9 +12,10 @@ namespace CoffeeShopBLL.Services.Interfaces
     {
         List<ProductVM> GetAll();
         ProductVM GetById(int id);
-        void Add(ProductVM Obj);
+        void Add(ProductVM Obj,string imgPath);
         void Edit(ProductVM Obj);
         void Delete(int id);
+        ProducsPerPageVM GetProductsPerPage(int page, int pageSize);
         int Save();
     }
 }
