@@ -7,10 +7,8 @@ namespace CoffeeShopBLL.Services.Interfaces
     public interface IOrderService
     {
         List<OrderVM> GetAll();
-        OrderVM GetById(int id);
-        void Add(OrderVM orderVM);
-        void Edit(OrderVM orderVM);
+        OrderVM? GetById(int id);
         void Delete(int id);
-        int Save();
+        void PlaceOrder(string UserId);
     }
 }

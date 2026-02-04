@@ -14,7 +14,7 @@ namespace CoffeeShopBLL.Mapping
                 OrderDate = order.OrderDate,
                 OrderStatus = order.OrderStatus,
                 UserId = order.UserId,
-                CartId = order.CartId
+                //CartId = order.CartId
             };
         }
     }

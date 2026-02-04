@@ -20,9 +20,10 @@ namespace CoffeeShopDAL.Entities
         public ApplicationUser User { get; set; } = null!;
         public int UserId { get; set; }
 
-        public Cart Cart { get; set; }=null!;
-        [ForeignKey("Cart")]
-        public int CartId { get; set; }
+        //public Cart Cart { get; set; }=null!;
+        //[ForeignKey("Cart")]
+        //public int CartId { get; set; }
+        public ICollection<OrderItem> OrderItems { get; set; }
 
     }
 }

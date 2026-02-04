@@ -2,6 +2,7 @@
 using CoffeeShopBLL.ModelVMs.Order;
 using CoffeeShopBLL.Services.Interfaces;
 using CoffeeShopDAL.Entities;
+using CoffeeShopDAL.Entities.Enums;
 using CoffeeShopDAL.Repositories.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,53 +18,49 @@ namespace CoffeeShopBLL.Services.Classes
             _orderRepository = orderRepository;
         }
 
-        public void Add(OrderVM orderVM)
-        {
-            var order = new Order
-            {
-                TotalPrice = orderVM.TotalPrice,
-                OrderDate = orderVM.OrderDate,
-                OrderStatus = orderVM.OrderStatus,
-                UserId = orderVM.UserId,
-                CartId = orderVM.CartId
-            };
-
-            _orderRepository.Add(order);
-        }
-
         public void Delete(int id)
         {
-            _orderRepository.Delete(id);
+            _orderRepository.DeleteOrder(id);
         }
 
-        public void Edit(OrderVM orderVM)
-        {
-            var order = new Order
-            {
-                Id = orderVM.Id,
-                TotalPrice = orderVM.TotalPrice,
-                OrderDate = orderVM.OrderDate,
-                OrderStatus = orderVM.OrderStatus,
-                UserId = orderVM.UserId,
-                CartId = orderVM.CartId
-            };
-
-            _orderRepository.Edit(order);
-        }
         public List<OrderVM> GetAll()
         {
-            return _orderRepository.GetAll()
-                                   .Select(o => o.orderVM())
-                                   .ToList();
+           return _orderRepository.GetAll().Select(o=>o.orderVM()).ToList();
         }
-        public OrderVM GetById(int id)
+
+        public OrderVM? GetById(int id)
         {
-            var order = _orderRepository.GetById(id);
-            return order.orderVM();
+            return _orderRepository.GetOrderById(id).orderVM();
         }
-        public int Save()
+
+        public void PlaceOrder(string UserId)
         {
-            return _orderRepository.Save();
+            throw new NotImplementedException();
         }
+
+        //public void PlaceOrder(string userId)
+        //{
+        //    var cart = await _cartRepo.GetCartWithItems(userId);
+
+        //    if (cart == null || !cart.CartItems.Any())
+        //        throw new Exception("Cart is Empty!");
+
+        //    decimal total = cart.CartItems.Sum(x =>
+                //x.Quantity * x.Product.Price);
+
+        //    Order order = new Order()
+        //    {
+        //        UserId = userId,
+        //        OrderDate = DateTime.Now,
+        //        TotalPrice = total,
+        //        OrderStatus = OrderStatus,
+        //        CartId = cart.Id
+        //    };
+
+        //    await _orderRepo.AddOrder(order);
+
+        //    await _cartRepo.ClearCart(cart.Id);
+        //}
+
     }
 }

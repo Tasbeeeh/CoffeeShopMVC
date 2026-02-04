@@ -24,8 +24,7 @@ namespace CoffeeShopDAL.Entities
         public int CategoryId { get; set; }
 
         public ICollection<CartItem> CartItems { get; set; } = null!;
-
-
+        public ICollection<OrderItem>? OrderItems { get; set; }
 
     }
 }
