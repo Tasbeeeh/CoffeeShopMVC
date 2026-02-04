@@ -1,6 +1,7 @@
 ﻿using CoffeeShopDAL.Entities.Enums;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +19,7 @@ namespace CoffeeShopBLL.ModelVMs.Product
         public decimal Price { get; set; }
         public bool InStock { get; set; }
         public int? Quantity { get; set; }
+        [Display(Name = "Category")]
         public int CategoryId { get; set; }
         public string? CategoryName { get; set; }
     }

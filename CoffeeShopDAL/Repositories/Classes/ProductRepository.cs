@@ -42,7 +42,8 @@ namespace CoffeeShopDAL.Repositories.Classes
 
         public Product GetById(int id)
         {
-            return _context.Products.Find(id)!;
+            return _context.Products.Include(p => p.Category)
+        .FirstOrDefault(p => p.Id == id)! ;
         }
 
         public int Save()

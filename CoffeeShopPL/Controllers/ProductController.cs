@@ -32,6 +32,7 @@ namespace CoffeeShopPL.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            ViewBag.Categories = new SelectList(_categoryService.GetAll(), "Id", "Name");
             return View("Create");
         }
         [HttpPost]
@@ -58,6 +59,7 @@ namespace CoffeeShopPL.Controllers
                 _productService.Save();
                 return RedirectToAction("Index");
             }
+            ViewBag.Categories = new SelectList(_categoryService.GetAll(), "Id", "Name");
             return View("Create", productVM);
         }
         public IActionResult Details(int id)
@@ -91,11 +93,25 @@ namespace CoffeeShopPL.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(ProductVM productVM)
+        public IActionResult Edit(ProductVM productVM, IFormFile img)
         {
+            string imgName = null!;
+            if (img != null)
+            {
+                imgName = Guid.NewGuid().ToString() + Path.GetExtension(img.FileName);
+                string folder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot",
+                                "assets",
+                                "img");
+                string fullPath = Path.Combine(folder, imgName);
+
+                using (var stream = new FileStream(fullPath, FileMode.Create))
+                {
+                    img.CopyTo(stream);
+                }
+            }
             if (ModelState.IsValid)
             {
-                _productService.Edit(productVM);
+                _productService.Edit(productVM, imgName);
                 _productService.Save();
                 return RedirectToAction("Index");
             }

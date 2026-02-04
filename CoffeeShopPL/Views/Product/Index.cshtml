@@ -33,10 +33,14 @@
             foreach (var product in Model)
             {
                 <tr>
-                    <td>@count</td>
+                    <td>@product.Id</td>
                     <td>@product.Name</td>
-                    <td>@product.Description</td>
-                    <td>@product.ProductSize</td>
+                    <td>
+                        @(product.Description?.Length > 25
+                                        ? product.Description.Substring(0, 25) + "..."
+                                        : product.Description)
+            </td>
+            <td>@product.ProductSize</td>
                     <td>@product.Price</td>
                     <td>@product.InStock</td>
                     <td>@product.Quantity</td>

@@ -45,13 +45,13 @@ namespace CoffeeShopBLL.Services.Classes
             _productRepository.Delete(id);
         }
 
-        public void Edit(ProductVM obj)
+        public void Edit(ProductVM obj, string imgPath)
         {
             Product product = new Product
             {
                 Name = obj.Name,
                 Description = obj.Description,
-                Image = obj.Image,
+                Image = imgPath,
                 ProductSize = obj.ProductSize,
                 Price = obj.Price,
                 InStock = obj.InStock,
@@ -89,7 +89,8 @@ namespace CoffeeShopBLL.Services.Classes
                                         Name = p.Name,
                                         Description = p.Description,
                                         Price = p.Price,
-                                        Image = p.Image
+                                        Image = p.Image,
+                                        CategoryName = p.CategoryName
                                     })
                                     .ToList();
             return new ProducsPerPageVM
