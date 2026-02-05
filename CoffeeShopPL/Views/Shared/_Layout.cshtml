@@ -1,0 +1,78 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - CoffeeShopPL</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/CoffeeShopPL.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="gr-navbar">
+        <div class="logo">
+            ☕ <strong>Golden Roast</strong>
+    
+        </div>
+
+        <ul class="nav-links">
+            <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+            <li><a asp-controller="Category" asp-action="Index">Categories</a></li>
+            <li><a asp-controller="Product" asp-action="Index">Products</a></li>
+            <li><a asp-controller="Cart" asp-action="Index">Cart</a></li>
+            <li><a asp-controller="Order" asp-action="Index">Orders</a></li>
+        </ul>
+
+        <div class="nav-actions">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <a class="btn-login">Sign In</a>
+        </div>
+    </nav>
+
+    <!-- Page Content -->
+    <main>
+        @RenderBody()
+    </main>
+
+    <!-- Footer -->
+    <footer class="gr-footer">
+        <div class="footer-content">
+            <div>
+                <h3>Golden Roast</h3>
+                <p>Crafting exceptional coffee experiences since 2020.</p>
+            </div>
+
+            <div>
+                <h4>Quick Links</h4>
+                <ul>
+                    <li>Home</li>
+                    <li>Our Menu</li>
+                    <li>Categories</li>
+                    <li>Track Order</li>
+                </ul>
+            </div>
+
+            <div>
+                <h4>Contact Us</h4>
+                <p>📍 123 Coffee Lane</p>
+                <p>📞 (555) 123-4567</p>
+                <p>✉ hello@goldenroast.com</p>
+            </div>
+        </div>
+
+        <p class="copy">© 2026 Golden Roast</p>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>
