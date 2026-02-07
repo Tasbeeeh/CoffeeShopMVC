@@ -13,6 +13,7 @@ namespace CoffeeShopDAL.Repositories.Interfaces
         Order? GetOrderById(int id);
         void AddOrder(Order order); //manually for admins
         void DeleteOrder(int id);
+        void UpdateOrder(Order order);
         int Save();
     }
 }

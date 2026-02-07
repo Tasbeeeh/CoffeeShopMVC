@@ -1,4 +1,5 @@
 ﻿using CoffeeShopBLL.ModelVMs.Cart;
+using CoffeeShopDAL.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,11 @@ namespace CoffeeShopBLL.Services.Interfaces
 {
     public interface ICartService
     {
-        IEnumerable<CartViewModel> GetAll();
-        CartViewModel GetById(int id);
-        void Add(CartViewModel Obj);
-        void Edit(CartViewModel Obj);
-        void Delete(int id);
-        int Save();
+        CartViewModel? GetCartById(int cartId);
+        CartViewModel? GetCartWithItems(string userId);
+        CartViewModel CreateCart(string userId);
+        CartViewModel GetUserCart(string userId);
+        bool ClearCart(int cartId);
+        bool DeleteCart(int cartId);
     }
 }

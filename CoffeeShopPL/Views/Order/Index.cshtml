@@ -1,54 +1,53 @@
 ﻿@using CoffeeShopBLL.ModelVMs.Order
+@using CoffeeShopDAL.Entities.Enums
 @model List<OrderVM>
 
-@{
-    ViewData["Title"] = "Orders";
+<h2>All Orders</h2>
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
 }
 
-<h1>Orders</h1>
-
-<p>
-    <a asp-action="Create" class="btn btn-primary">Add New Order</a>
-</p>
-
-<table class="table table-bordered table-striped">
+<table class="table table-bordered">
     <thead>
         <tr>
-            <th>#</th>
+            <th>Id</th>
+            <th>User</th>
             <th>Total Price</th>
-            <th>Order Date</th>
             <th>Status</th>
-            <th>User Id</th>
-            <th>Cart Id</th>
+            <th>Order Date</th>
             <th>Actions</th>
         </tr>
     </thead>
     <tbody>
-        @if (Model != null && Model.Any())
-        {
-            int count = 1;
-            foreach (var order in Model)
-            {
-                <tr>
-                    <td>@count</td>
-                    <td>@order.TotalPrice</td>
-                    <td>@order.OrderDate.ToShortDateString()</td>
-                    <td>@order.OrderStatus</td>
-                    <td>@order.UserId</td>
-                    <td>@order.CartId</td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@order.Id" class="btn btn-sm btn-warning">Edit</a>
-                        <a asp-action="Delete" asp-route-id="@order.Id" class="btn btn-sm btn-danger"
-                           onclick="return confirm('Are you sure?')">Delete</a>
-                    </td>
-                </tr>
-                count++;
-            }
-        }
-        else
+        @foreach (var order in Model)
         {
             <tr>
-                <td colspan="7" class="text-center">No Orders Found</td>
+                <td>@order.Id</td>
+                <td>@order.UserId</td>
+                <td>@order.TotalPrice.ToString("0.00")</td>
+                <td>@order.OrderStatus</td>
+                <td>@order.OrderDate.ToString("g")</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@order.Id" class="btn btn-sm btn-info">Details</a>
+
+                    <form asp-action="ChangeStatus" method="post" class="d-inline">
+                        <input type="hidden" name="orderId" value="@order.Id" />
+                        <select name="status" class="form-select form-select-sm d-inline w-auto">
+                            <option value="Pending" selected="@(order.OrderStatus == OrderStatus.Pending)">Pending</option>
+                            <option value="Confirmed" selected="@(order.OrderStatus == OrderStatus.Confirmed)">Confirmed</option>
+                            <option value="Cancelled" selected="@(order.OrderStatus == OrderStatus.Cancelled)">Cancelled</option>
+                        </select>
+
+                        <button class="btn btn-sm btn-warning">Update</button>
+                    </form>
+
+                    <form asp-action="Delete" method="post" class="d-inline">
+                        <input type="hidden" name="id" value="@order.Id" />
+                        <button class="btn btn-sm btn-danger">Delete</button>
+                    </form>
+                </td>
             </tr>
         }
     </tbody>

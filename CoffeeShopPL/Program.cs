@@ -23,6 +23,7 @@ namespace CoffeeShopPL
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<CoffeeShopDbContext>()
                 .AddDefaultTokenProviders();
+
             builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
             builder.Services.AddScoped<ICategoryService, CategoryService>();
 
@@ -31,14 +32,33 @@ namespace CoffeeShopPL
 
             builder.Services.AddScoped<IOrderRepository, OrderRepository>();
             builder.Services.AddScoped<IOrderService, OrderService>();
+
             builder.Services.AddScoped<ICartItemRepository, CartItemRepository>();
             builder.Services.AddScoped<ICartItemService, CartItemService>();
 
             builder.Services.AddScoped<ICartRepository, CartRepository>();
             builder.Services.AddScoped<ICartService, CartService>();
 
-
             var app = builder.Build();
+            //using (var scope = app.Services.CreateScope())
+            //{
+            //    var context = scope.ServiceProvider.GetRequiredService<CoffeeShopDbContext>();
+
+               
+            //    if (!context.Users.Any(u => u.Id == "tot"))
+            //    {
+            //        var user = new ApplicationUser
+            //        {
+            //            Id = "tot",
+            //            UserName = "tot",
+            //            Email = "tot123@example.com"
+            //        };
+            //        context.Users.Add(user);
+            //        context.SaveChanges();
+            //    }
+            //}
+
+
             app.UseStaticFiles();
 
             // Configure the HTTP request pipeline.

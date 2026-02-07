@@ -12,10 +12,26 @@ namespace CoffeeShopBLL.Services.Classes
     public class OrderService : IOrderService
     {
         private readonly IOrderRepository _orderRepository;
-
-        public OrderService(IOrderRepository orderRepository)
+        private readonly ICartRepository _cartRepository;
+        public OrderService(IOrderRepository orderRepository, ICartRepository cartRepository)
         {
             _orderRepository = orderRepository;
+            _cartRepository = cartRepository;
+        }
+
+        public void Add(OrderVM orderVM)
+        {
+            Order order = new Order()
+            {
+                Id = orderVM.Id,
+                OrderDate = orderVM.OrderDate,
+                OrderStatus = orderVM.OrderStatus,
+                TotalPrice = orderVM.TotalPrice,
+                UserId = orderVM.UserId,
+                
+            };
+            _orderRepository.AddOrder(order);
+            _orderRepository.Save();
         }
 
         public void Delete(int id)
@@ -33,34 +49,56 @@ namespace CoffeeShopBLL.Services.Classes
             return _orderRepository.GetOrderById(id).orderVM();
         }
 
-        public void PlaceOrder(string UserId)
+      
+
+        public void PlaceOrder(string userId)
         {
-            throw new NotImplementedException();
+            var cart = _cartRepository.GetCartWithItems(userId);
+
+            if (cart == null || !cart.CartItems.Any())
+                throw new Exception("Cart is Empty!");
+
+            decimal total = cart.CartItems.Sum(x =>
+                x.Quantity * x.Product.Price);
+
+            Order order = new Order()
+            {
+                UserId = userId,
+                OrderDate = DateTime.Now,
+                TotalPrice = total,
+                OrderStatus = OrderStatus.Pending,
+                
+            };
+
+             _orderRepository.AddOrder(order);
+
+             _cartRepository.ClearCart(cart.Id);
         }
 
-        //public void PlaceOrder(string userId)
-        //{
-        //    var cart = await _cartRepo.GetCartWithItems(userId);
+        public void Update(OrderVM orderVM)
+        {
+            Order order = new Order()
+            {
+                Id = orderVM.Id,
+                OrderDate = orderVM.OrderDate,
+                OrderStatus = orderVM.OrderStatus,
+                TotalPrice = orderVM.TotalPrice,
+                UserId = orderVM.UserId,
 
-        //    if (cart == null || !cart.CartItems.Any())
-        //        throw new Exception("Cart is Empty!");
+            };
+            _orderRepository.UpdateOrder(order);
+            _orderRepository.Save();
+        }
 
-        //    decimal total = cart.CartItems.Sum(x =>
-                //x.Quantity * x.Product.Price);
+        public void ChangeOrderStatus(int orderId, OrderStatus status)
+        {
+            var order = _orderRepository.GetOrderById(orderId);
+            if (order == null)
+                throw new Exception("Order not found");
 
-        //    Order order = new Order()
-        //    {
-        //        UserId = userId,
-        //        OrderDate = DateTime.Now,
-        //        TotalPrice = total,
-        //        OrderStatus = OrderStatus,
-        //        CartId = cart.Id
-        //    };
-
-        //    await _orderRepo.AddOrder(order);
-
-        //    await _cartRepo.ClearCart(cart.Id);
-        //}
+            order.OrderStatus = status;
+            _orderRepository.Save();
+        }
 
     }
 }

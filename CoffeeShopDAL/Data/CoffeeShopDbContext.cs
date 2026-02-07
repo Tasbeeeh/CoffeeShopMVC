@@ -50,7 +50,7 @@ namespace CoffeeShopDAL.Data
 
             builder.Entity<ApplicationUser>().ToTable(Tb =>
             {
-                Tb.HasCheckConstraint("EmailCheck", "Email Like '   _%@_%._%'");
+                Tb.HasCheckConstraint("EmailCheck", "Email Like '_%@_%._%'");
                 Tb.HasCheckConstraint("PhoneCheck", "PhoneNumber LIKE '01%' AND PhoneNumber NOT LIKE '%[^0-9]%'");
             });
 

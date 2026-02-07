@@ -1,6 +1,7 @@
 ﻿using CoffeeShopDAL.Data;
 using CoffeeShopDAL.Entities;
 using CoffeeShopDAL.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,29 +18,58 @@ namespace CoffeeShopDAL.Repositories.Classes
         {
             _context = context;
         }
-        public void Add(Cart Obj)
+
+        public void ClearCart(int CartId)
         {
-            _context.Carts.Add(Obj);
+            var cart =  _context.Carts
+            .Include(c => c.CartItems)
+            .FirstOrDefault(c => c.Id == CartId);
+
+            if (cart != null && cart.CartItems.Any())
+            {
+                _context.CartItems.RemoveRange(cart.CartItems);
+            }
         }
 
-        public void Delete(int id)
+        public void CreateCart(Cart cart)
         {
-            _context.Carts.Remove(GetById(id));
+            _context.Carts.Add(cart);
         }
 
-        public void Edit(Cart Obj)
+        public void DeleteCart(int CartId)
         {
-            _context.Carts.Update(Obj);
+            var cart = GetCartById(CartId);
+            if(cart != null)
+            {
+                _context.Carts.Remove(cart);
+            }
         }
 
-        public List<Cart> GetAll()
+        public Cart? GetCartById(int CartId)
         {
-            return _context.Carts.ToList();
+            return _context.Carts
+                .FirstOrDefault(c=>c.Id == CartId);
         }
 
-        public Cart GetById(int id)
+        public Cart? GetCartWithItems(string UserId)
         {
-            return _context.Carts.Find(id);
+            return _context.Carts
+                .Include(c => c.CartItems)
+                .ThenInclude(p=>p.Product)
+                //.Include(c => c.Voucher)
+                .FirstOrDefault(c=>c.UserId == UserId);
+        }
+
+        public Cart? GetUserCart(string UserId)
+        {
+            return _context.Carts.FirstOrDefault(c=>c.UserId == UserId);
+        }
+        public Cart? GetCartWithItemsByCartId(int cartId)
+        {
+            return _context.Carts
+                .Include(c => c.CartItems)
+                .ThenInclude(ci => ci.Product)
+                .FirstOrDefault(c => c.Id == cartId);
         }
 
         public int Save()

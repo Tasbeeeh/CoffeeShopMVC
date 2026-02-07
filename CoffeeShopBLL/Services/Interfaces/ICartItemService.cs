@@ -16,6 +16,5 @@ namespace CoffeeShopBLL.Services.Interfaces
         void UpdateQuantity(int cartId, int productId, UpdateQuantityVM vm);
 
         void RemoveItem(int cartId, int productId);
-        int Save();
     }
 }

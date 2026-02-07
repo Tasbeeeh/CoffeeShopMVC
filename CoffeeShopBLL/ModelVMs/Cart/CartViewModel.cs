@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CoffeeShopBLL.ModelVMs.CartItem;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,5 +12,8 @@ namespace CoffeeShopBLL.ModelVMs.Cart
         public int Id { get; set; }
         public decimal TotalPrice { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
+        public string UserId { get; set; } = null!;
+        public ICollection<CartItemVM>? CartItems { get; set; }
+
     }
 }

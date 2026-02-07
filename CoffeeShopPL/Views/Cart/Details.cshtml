@@ -1,0 +1,56 @@
+﻿@model CoffeeShopBLL.ModelVMs.Cart.CartViewModel
+
+<h2>Cart Details</h2>
+
+@if (Model.CartItems != null && Model.CartItems.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.CartItems)
+            {
+                <tr>
+                    <td>@item.ProductName</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.UnitPrice.ToString("0.00")</td>
+                    <td>@(item.Quantity* item.UnitPrice).ToString("0.00")</td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3">Total Price:</td>
+                <td>@Model.CartItems.Sum(i => i.Quantity * i.UnitPrice).ToString("0.00")</td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <form asp-action="PlaceOrder" asp-controller="Order" method="post">
+        <input type="hidden" name="userId" value="@Model.UserId" />
+        <button class="btn btn-success">Place Order from your Cart</button>
+    </form>
+
+
+    <!-- Clear Cart -->
+    <form asp-action="Clear" method="post" class="d-inline">
+        <input type="hidden" name="cartId" value="@Model.Id" />
+        <button type="submit" class="btn btn-warning">Clear Cart</button>
+    </form>
+
+    <!-- Delete Cart -->
+    <form asp-action="Delete" method="post" class="d-inline">
+        <input type="hidden" name="cartId" value="@Model.Id" />
+        <button type="submit" class="btn btn-danger">Delete Cart</button>
+    </form>
+}
+else
+{
+    <p>Your cart is empty.</p>
+}

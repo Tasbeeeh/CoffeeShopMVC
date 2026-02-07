@@ -33,8 +33,8 @@ namespace CoffeeShopDAL.Repositories.Classes
         public List<Order> GetAll()
         {
             return _context.Orders
-                .Include(o => o.User)
-                //.Include(o => o.Cart)
+                .Include(o => o.OrderItems)
+                .ThenInclude(p=>p.Product)
                 .OrderByDescending(o => o.OrderDate)
                 .ToList();
         }
@@ -42,13 +42,19 @@ namespace CoffeeShopDAL.Repositories.Classes
         public Order? GetOrderById(int id)
         {
             return _context.Orders
-                .Include(o=>o.User)
+                .Include(o => o.OrderItems)
+                .ThenInclude(p => p.Product)
                 .SingleOrDefault(o=>o.Id==id);
         }
 
         public int Save()
         {
             return _context.SaveChanges();
+        }
+
+        public void UpdateOrder(Order order)
+        {
+            _context.Orders.Update(order);
         }
     }
 }
