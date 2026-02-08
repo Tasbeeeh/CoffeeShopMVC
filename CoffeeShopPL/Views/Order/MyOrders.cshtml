@@ -1,0 +1,54 @@
+﻿@using CoffeeShopBLL.ModelVMs.Order
+@model List<OrderVM>
+
+@{
+    ViewData["Title"] = "Orders";
+}
+
+<h1 class="p-3">My Orders</h1>
+
+
+
+<table class="table table-bordered table-striped w-75 mx-auto">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Total Price</th>
+            <th>Order Date</th>
+            <th>Status</th>
+            <th>Details</th>
+
+            <th>Cancel</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            int count = 1;
+            foreach (var order in Model)
+            {
+                <tr p-5>
+                    <td>@count</td>
+                    <td>@order.TotalPrice</td>
+                    <td>@order.OrderDate.ToShortDateString()</td>
+                    <td>@order.OrderStatus</td>
+
+                    <td>
+                        <a asp-action="Details" asp-route-id="@order.Id" class="text-black text-decoration-none">Show</a>
+                    </td>
+                    <td>
+                        <a asp-action="Delete" asp-route-id="@order.Id" class="text-danger text-decoration-none"
+                           onclick="return confirm('Are you sure?')">Cancel</a>
+                    </td>
+                </tr>
+                count++;
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="7" class="text-center">No Orders Found</td>
+            </tr>
+        }
+    </tbody>
+</table>

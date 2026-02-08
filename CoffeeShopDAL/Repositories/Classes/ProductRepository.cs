@@ -50,5 +50,35 @@ namespace CoffeeShopDAL.Repositories.Classes
         {
             return _context.SaveChanges();
         }
+
+
+
+
+
+        public List<Product> GetProductsByCategory(string categoryName)
+        {
+            var ct = categoryName;
+
+            var cats = _context.Categories.ToList();
+
+            var category = _context.Categories
+                .FirstOrDefault(c => c.Name.ToLower() == categoryName.ToLower());
+
+            if (category == null)
+                return new List<Product>();
+
+            return _context.Products
+                .Where(p => p.CategoryId == category.Id)
+                .ToList();
+        }
+
+
+        public List<Product> Search(string term)
+        {
+            return _context.Products
+                .Where(p => EF.Functions.Like(p.Name, $"%{term}%"))
+                .ToList();
+        }
+
     }
 }

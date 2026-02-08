@@ -16,6 +16,10 @@ namespace CoffeeShopBLL.Services.Interfaces
         void Edit(ProductVM Obj, string imgPath);
         void Delete(int id);
         ProducsPerPageVM GetProductsPerPage(int page, int pageSize);
+        ProducsPerPageVM GetProductsCatPerPage(string categoryName,int page, int pageSize);
+
         int Save();
+        List<ProductVM> Search(string term);
+        List<ProductVM> GetProductsByCategoryName(string categoryName);
     }
 }

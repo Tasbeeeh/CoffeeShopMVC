@@ -1,4 +1,5 @@
 ﻿using CoffeeShopBLL.Mapping;
+using CoffeeShopBLL.ModelVMs.CartItem;
 using CoffeeShopBLL.ModelVMs.Order;
 using CoffeeShopBLL.Services.Interfaces;
 using CoffeeShopDAL.Entities;
@@ -61,6 +62,34 @@ namespace CoffeeShopBLL.Services.Classes
             var order = _orderRepository.GetById(id);
             return order.orderVM();
         }
+
+        public List<OrderVM> GetUserOrders(string userId)
+        {
+            return _orderRepository.GetOrdersByUserId(userId)
+                        .Select(o => o.orderVM())
+                        .ToList();
+                }
+        public OrderDetailsVM GetOrderDetails(int orderId)
+        {
+            var order = _orderRepository.GetOrderWithItems(orderId);
+
+            if (order == null) return null;
+
+            return new OrderDetailsVM
+            {
+                OrderId = order.Id,
+                CreatedAt = order.OrderDate,
+                TotalPrice = order.TotalPrice,
+                Items = order.Cart.CartItems.Select(ci => new CartItemVM
+                {
+                    ProductName = ci.Product.Name,
+                    Quantity = ci.Quantity,
+                    UnitPrice = ci.UnitPrice
+                }).ToList()
+            };
+        }
+
+
         public int Save()
         {
             return _orderRepository.Save();

@@ -9,5 +9,8 @@ namespace CoffeeShopDAL.Repositories.Interfaces
 {
     public interface IOrderRepository : IRepository<Order>
     {
+        List<Order> GetOrdersByUserId(string userId);
+        Order GetOrderWithItems(int orderId);
+
     }
 }

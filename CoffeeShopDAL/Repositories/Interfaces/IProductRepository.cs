@@ -9,6 +9,7 @@ namespace CoffeeShopDAL.Repositories.Interfaces
 {
     public interface IProductRepository : IRepository<Product>
     {
-
+        List<Product> Search(string term);
+        List<Product> GetProductsByCategory(string categoryName);
     }
 }

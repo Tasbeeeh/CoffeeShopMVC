@@ -46,6 +46,23 @@ namespace CoffeeShopDAL.Repositories.Classes
             return _context.Orders.Find(id)!;
         }
 
+        public List<Order> GetOrdersByUserId(string userId)
+        {
+            return _context.Orders
+            .Where(o => o.User.Id == userId)
+            .OrderByDescending(o => o.OrderDate)
+            .ToList();
+        }
+        public Order GetOrderWithItems(int orderId)
+        {
+            return _context.Orders
+                .Include(o => o.Cart)
+                    .ThenInclude(c => c.CartItems)
+                        .ThenInclude(ci => ci.Product)
+                .FirstOrDefault(o => o.Id == orderId)!;
+        }
+
+
         public int Save()
         {
             return _context.SaveChanges();

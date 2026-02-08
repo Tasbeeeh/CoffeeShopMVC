@@ -5,8 +5,11 @@
     <h2>All Products</h2>
     <p class="text-muted">Discover our complete collection of handcrafted beverages and treats</p>
 </div>
+<div class="container ">
+    @Html.Partial("_SearchBox", "Product")
+</div>
 
-<div class="row">
+<div class="row w-100 d-flex justify-content-center p-3">
 @foreach (var p in Model.Products)
 {
         <div class="col-md-3 d-flex justify-content-center mb-4">
@@ -48,7 +51,7 @@
 </div>
 
 <nav>
-    <ul class="pagination">
+    <ul class="pagination p-3">
         @* @if (Model.HasPrevious)
         {
             <li class="page-item">

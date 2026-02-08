@@ -24,6 +24,7 @@ namespace CoffeeShopBLL.Services.Classes
             var category = new Category
             {
                 Name = Obj.Name,
+                Image =Obj.Image,
             };
             _categoryRepository.Add(category);
         }
@@ -36,7 +37,7 @@ namespace CoffeeShopBLL.Services.Classes
 
         public void Edit(CategoryVM Obj)
         {
-            var category = new Category { Id = Obj.Id, Name = Obj.Name, };
+            var category = new Category { Id = Obj.Id, Name = Obj.Name, Image= Obj.Image};
             _categoryRepository.Edit(category);
         }
 

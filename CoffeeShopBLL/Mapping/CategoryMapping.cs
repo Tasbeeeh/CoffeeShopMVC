@@ -16,6 +16,7 @@ namespace CoffeeShopBLL.Mapping
             {
                 Id = category.Id,
                 Name = category.Name,
+                Image = category.Image
             };
         }
     }

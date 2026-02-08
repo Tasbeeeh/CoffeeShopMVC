@@ -1,5 +1,7 @@
 ﻿using CoffeeShopBLL.ModelVMs.Order;
 using CoffeeShopBLL.Services.Interfaces;
+using CoffeeShopDAL.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CoffeeShopPL.Controllers
@@ -7,16 +9,40 @@ namespace CoffeeShopPL.Controllers
     public class OrderController : Controller
     {
         private readonly IOrderService _orderService;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public OrderController(IOrderService orderService)
+        public OrderController(IOrderService orderService, UserManager<ApplicationUser> userManager)
         {
             _orderService = orderService;
+            _userManager = userManager;
+
         }
         public IActionResult Index()
         {
-            var orders = _orderService.GetAll();
+            //var orders = _orderService.GetAll();
+            //return View(orders);
+            var userId = _userManager.GetUserId(User);
+            var orders = _orderService.GetUserOrders(userId);
+            return View(orders); 
+        }
+        public IActionResult MyOrders()
+        {
+            //var orders = _orderService.GetAll();
+            //return View(orders);
+            var userId = _userManager.GetUserId(User);
+            var orders = _orderService.GetUserOrders(userId);
             return View(orders);
         }
+        public IActionResult Details(int id)
+        {
+            var orderDetails = _orderService.GetOrderDetails(id);
+
+            if (orderDetails == null)
+                return NotFound();
+
+            return View(orderDetails);
+        }
+
         [HttpGet]
         public IActionResult Create()
         {

@@ -1,0 +1,85 @@
+﻿@using CoffeeShopBLL.ModelVMs.Product
+@model ProducsPerPageVM
+
+<div class="text-center my-5">
+    <h2>@Model.Products[0].CategoryName</h2>
+    <p class="text-muted">Discover our complete collection of handcrafted beverages and treats</p>
+</div>
+<div class="container ">
+    @Html.Partial("_SearchBox", "Product")
+</div>
+
+
+<div class="row w-100 d-flex justify-content-center p-3">
+    @foreach (var p in Model.Products)
+    {
+        <div class="col-md-3 d-flex justify-content-center mb-4">
+            <a asp-controller="Product"
+               asp-action="Details"
+               asp-route-id="@p.Id"
+               class="text-decoration-none w-100">
+
+                <div class="card product-card h-100 ">
+
+                    <div class="img-wrapper">
+                        <img src="~/assets/img/@p.Image" alt="@p.Name" />
+                    </div>
+
+                    <div class="card-body">
+                        <small class="text-muted text-uppercase">@p.CategoryName</small>
+
+                        <h6 class="product-title">@p.Name</h6>
+
+
+                        <div class=" bg-transparent border-0 d-flex justify-content-between align-items-center mt-4">
+                            <p class="price">
+                                @p.Price.ToString("0.00") EGP
+                            </p>
+                            <button class="add-to-cart-btn">
+                                <i class="bi bi-cart"></i>
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </a>
+        </div>
+
+
+    }
+</div>
+
+<nav>
+    <ul class="pagination p-3">
+        @* @if (Model.HasPrevious)
+        {
+            <li class="page-item">
+                <a class="page-link" asp-action="Browse" asp-route-page="@(Model.Page - 1)">Prev</a>
+            </li>
+        } *@
+
+     @for (int i = 1; i <= Model.TotalPages; i++)
+{
+    <li class="page-item @(i == Model.Page ? "active" : "")">
+        <a class="page-link"
+           asp-action="Category"
+                   asp-route-categoryName="@Context.Request.Query["categoryName"]"
+           asp-route-page="@i"
+           >
+            @i
+        </a>
+    </li>
+}
+
+
+        @* @if (Model.HasNext)
+        {
+            <li class="page-item">
+                <a class="page-link" asp-action="Browse" asp-route-page="@(Model.Page + 1)">Next</a>
+            </li>
+        } *@
+    </ul>
+</nav>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">

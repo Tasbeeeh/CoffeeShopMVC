@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 //using System.Data.Entity;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -29,8 +30,9 @@ namespace CoffeeShopDAL.Data
             base.OnModelCreating(builder);
 
 
-            //
-           
+            builder.Entity<Product>()
+                    .Ignore(p => p.InStock);
+
             builder.Entity<Product>()
                 .HasMany(o=>o.CartItems)
                 .WithOne(o=>o.Product)

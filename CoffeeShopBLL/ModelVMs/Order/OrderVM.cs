@@ -12,5 +12,6 @@ namespace CoffeeShopBLL.ModelVMs.Order
         public OrderStatus OrderStatus { get; set; }
         public int UserId { get; set; }
         public int CartId { get; set; }
+
     }
 }
