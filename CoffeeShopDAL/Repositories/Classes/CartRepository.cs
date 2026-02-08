@@ -21,7 +21,7 @@ namespace CoffeeShopDAL.Repositories.Classes
 
         public void ClearCart(int CartId)
         {
-            var cart =  _context.Carts
+            var cart = _context.Carts
             .Include(c => c.CartItems)
             .FirstOrDefault(c => c.Id == CartId);
 
@@ -39,7 +39,7 @@ namespace CoffeeShopDAL.Repositories.Classes
         public void DeleteCart(int CartId)
         {
             var cart = GetCartById(CartId);
-            if(cart != null)
+            if (cart != null)
             {
                 _context.Carts.Remove(cart);
             }
@@ -48,21 +48,21 @@ namespace CoffeeShopDAL.Repositories.Classes
         public Cart? GetCartById(int CartId)
         {
             return _context.Carts
-                .FirstOrDefault(c=>c.Id == CartId);
+                .FirstOrDefault(c => c.Id == CartId);
         }
 
         public Cart? GetCartWithItems(string UserId)
         {
             return _context.Carts
                 .Include(c => c.CartItems)
-                .ThenInclude(p=>p.Product)
+                .ThenInclude(p => p.Product)
                 //.Include(c => c.Voucher)
-                .FirstOrDefault(c=>c.UserId == UserId);
+                .FirstOrDefault(c => c.UserId == UserId);
         }
 
         public Cart? GetUserCart(string UserId)
         {
-            return _context.Carts.FirstOrDefault(c=>c.UserId == UserId);
+            return _context.Carts.FirstOrDefault(c => c.UserId == UserId);
         }
         public Cart? GetCartWithItemsByCartId(int cartId)
         {
@@ -78,4 +78,3 @@ namespace CoffeeShopDAL.Repositories.Classes
         }
     }
 }
-

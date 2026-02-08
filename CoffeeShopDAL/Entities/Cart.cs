@@ -14,6 +14,7 @@ namespace CoffeeShopDAL.Entities
         public DateTime CreatedAt { get; set; }
 
         //relations
+        public int? VoucherId { get; set; }
         public Voucher? Voucher { get; set; }
 
 

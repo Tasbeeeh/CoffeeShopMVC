@@ -39,27 +39,31 @@ namespace CoffeeShopPL
             builder.Services.AddScoped<ICartRepository, CartRepository>();
             builder.Services.AddScoped<ICartService, CartService>();
 
+
+
+
+
             var app = builder.Build();
-            //using (var scope = app.Services.CreateScope())
-            //{
-            //    var context = scope.ServiceProvider.GetRequiredService<CoffeeShopDbContext>();
-
-               
-            //    if (!context.Users.Any(u => u.Id == "tot"))
-            //    {
-            //        var user = new ApplicationUser
-            //        {
-            //            Id = "tot",
-            //            UserName = "tot",
-            //            Email = "tot123@example.com"
-            //        };
-            //        context.Users.Add(user);
-            //        context.SaveChanges();
-            //    }
-            //}
+            using (var scope = app.Services.CreateScope())
+            {
+                var context = scope.ServiceProvider.GetRequiredService<CoffeeShopDbContext>();
 
 
-            app.UseStaticFiles();
+            if (!context.Users.Any(u => u.Id == "test"))
+            {
+                var user = new ApplicationUser
+                {
+                    Id = "test",
+                    UserName = "Tasbeeh",
+                    Email = "tasbeehmohamed540@gmail.com"
+                };
+                context.Users.Add(user);
+                context.SaveChanges();
+            }
+        }
+
+
+        app.UseStaticFiles();
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())

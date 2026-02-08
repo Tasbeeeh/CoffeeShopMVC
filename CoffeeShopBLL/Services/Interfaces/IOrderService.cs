@@ -10,6 +10,7 @@ namespace CoffeeShopBLL.Services.Interfaces
         List<OrderVM> GetAll();
         OrderVM? GetById(int id);
         void Delete(int id);
+        bool DeleteIfPending(int id);
         void Add(OrderVM orderVM);
         void Update(OrderVM orderVM);
         void PlaceOrder(string UserId);

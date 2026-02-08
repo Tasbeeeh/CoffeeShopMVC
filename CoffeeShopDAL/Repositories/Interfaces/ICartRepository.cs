@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CoffeeShopDAL.Repositories.Interfaces
 {
-    public interface ICartRepository 
+    public interface ICartRepository
     {
         Cart? GetCartById(int CartId);
         Cart? GetCartWithItems(string UserId);

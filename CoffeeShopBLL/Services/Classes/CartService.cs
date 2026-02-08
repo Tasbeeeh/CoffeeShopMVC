@@ -23,13 +23,13 @@ namespace CoffeeShopBLL.Services.Classes
 
         public bool ClearCart(int cartId)
         {
-            var cart =  _cartRepository.GetCartById(cartId);
+            var cart = _cartRepository.GetCartById(cartId);
             if (cart == null) return false;
 
-             _cartRepository.ClearCart(cartId);
+            _cartRepository.ClearCart(cartId);
 
             cart.TotalPrice = 0;
-             _cartRepository.Save();
+            _cartRepository.Save();
 
             return true;
         }
@@ -44,7 +44,7 @@ namespace CoffeeShopBLL.Services.Classes
             };
 
             _cartRepository.CreateCart(cart);
-             _cartRepository.Save();
+            _cartRepository.Save();
 
             return cart.Cartviewmodel();
         }
@@ -75,8 +75,8 @@ namespace CoffeeShopBLL.Services.Classes
             if (cart.CartItems == null)
                 cart.CartItems = new List<CartItem>();
 
-            UpdateCartTotalPrice(cart); 
-            _cartRepository.Save();     
+            UpdateCartTotalPrice(cart);
+            _cartRepository.Save();
 
             return cart.Cartviewmodel();
         }
@@ -87,8 +87,8 @@ namespace CoffeeShopBLL.Services.Classes
             if (cart == null)
                 return CreateCart(userId);
 
-            UpdateCartTotalPrice(cart); 
-            _cartRepository.Save();     
+            UpdateCartTotalPrice(cart);
+            _cartRepository.Save();
 
             return cart.Cartviewmodel();
         }
@@ -102,8 +102,16 @@ namespace CoffeeShopBLL.Services.Classes
             if (cart == null || cart.CartItems == null)
                 return;
 
-            cart.TotalPrice = cart.CartItems.Sum(ci => ci.Quantity * ci.UnitPrice);
+            decimal total = cart.CartItems.Sum(ci => ci.Quantity * ci.UnitPrice);
+
+            if (total > 5000)
+            {
+                total -= 200;
+            }
+
+            cart.TotalPrice = total;
         }
+
 
 
     }

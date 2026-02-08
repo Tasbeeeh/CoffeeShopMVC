@@ -14,7 +14,7 @@ namespace CoffeeShopPL.Controllers
 
         public IActionResult Details(int cartId)
         {
-            var cart =  _cartService.GetCartById(cartId);
+            var cart = _cartService.GetCartById(cartId);
 
             if (cart == null)
                 return NotFound();
@@ -28,7 +28,7 @@ namespace CoffeeShopPL.Controllers
             if (string.IsNullOrEmpty(userId))
                 return BadRequest();
 
-            var cart =  _cartService.GetUserCart(userId);
+            var cart = _cartService.GetUserCart(userId);
 
             return View("Details", cart);
         }
@@ -51,7 +51,7 @@ namespace CoffeeShopPL.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Clear(int cartId)
         {
-            var success =  _cartService.ClearCart(cartId);
+            var success = _cartService.ClearCart(cartId);
 
             if (!success)
                 return NotFound();
@@ -62,7 +62,7 @@ namespace CoffeeShopPL.Controllers
         // POST: /Cart/Delete/1
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public  IActionResult Delete(int cartId)
+        public IActionResult Delete(int cartId)
         {
             var success = _cartService.DeleteCart(cartId);
 

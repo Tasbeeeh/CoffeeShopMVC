@@ -39,37 +39,59 @@ namespace CoffeeShopPL.Controllers
         // POST: /Order/PlaceOrder
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public void PlaceOrder(string userId)
+        public IActionResult PlaceOrder(string userId)
         {
-            var cart = _cartService.GetCartWithItems(userId);
-
-            if (cart == null || !cart.CartItems.Any())
-                throw new Exception("Cart is Empty!");
-
-            Order order = new Order()
+            try
             {
-                UserId = userId,
-                OrderDate = DateTime.Now,
-                TotalPrice = cart.CartItems.Sum(ci => ci.Quantity * ci.UnitPrice),
-                OrderStatus = OrderStatus.Pending,
-                OrderItems = new List<OrderItem>()
-            };
+                var cart = _cartService.GetCartWithItems(userId);
 
-            foreach (var ci in cart.CartItems)
-            {
-                var orderItem = new OrderItem
+                if (cart == null || !cart.CartItems.Any())
                 {
-                    ProductId = ci.ProductId,
-                    Quantity = ci.Quantity,
-                    UnitPrice = ci.UnitPrice
+                    TempData["Error"] = "Cart is empty!";
+                    return RedirectToAction("Index", "Cart");
+                }
+
+                Order order = new Order()
+                {
+                    UserId = userId,
+                    OrderDate = DateTime.Now,
+                    TotalPrice = cart.CartItems.Sum(ci => ci.Quantity * ci.UnitPrice),
+                    OrderStatus = OrderStatus.Pending,
+                    OrderItems = new List<OrderItem>()
                 };
-                order.OrderItems.Add(orderItem);
+
+                foreach (var ci in cart.CartItems)
+                {
+                    var orderItem = new OrderItem
+                    {
+                        ProductId = ci.ProductId,
+                        Quantity = ci.Quantity,
+                        UnitPrice = ci.UnitPrice
+                    };
+                    order.OrderItems.Add(orderItem);
+                }
+
+                _orderRepository.AddOrder(order);
+                _orderRepository.Save();
+
+                _cartService.ClearCart(cart.Id);
+
+                return RedirectToAction("Confirmed", "Order", new { orderId = order.Id });
             }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+                return RedirectToAction("Index", "Cart");
+            }
+        }
 
-            _orderRepository.AddOrder(order);
-            _orderRepository.Save();
+        public IActionResult Confirmed(int orderId)
+        {
+            var order = _orderRepository.GetOrderById(orderId);
+            if (order == null)
+                return NotFound();
 
-            _cartService.ClearCart(cart.Id);
+            return View(order);
         }
 
 
@@ -105,5 +127,27 @@ namespace CoffeeShopPL.Controllers
                 return RedirectToAction("Index");
             }
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteIfPending(int id)
+        {
+            try
+            {
+                bool deleted = _orderService.DeleteIfPending(id);
+                if (deleted)
+                    TempData["Success"] = "Order deleted successfully.";
+                else
+                    TempData["Error"] = "Order cannot be deleted because it is Confirmed.";
+
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+                return RedirectToAction("Index");
+            }
+        }
+
     }
 }

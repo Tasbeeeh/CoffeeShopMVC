@@ -62,9 +62,7 @@ namespace CoffeeShopDAL.Data
                 .Property(c=>c.CreatedAt)
                 .HasDefaultValueSql("GETDATE()");
             
-            builder.Entity<Voucher>()
-                .Property(c=>c.CreatedAt)
-                .HasDefaultValueSql("GETDATE()");
+           
 
 
 

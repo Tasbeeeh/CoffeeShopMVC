@@ -37,6 +37,7 @@ namespace CoffeeShopBLL.Services.Classes
         public void Delete(int id)
         {
             _orderRepository.DeleteOrder(id);
+            _orderRepository.Save();
         }
 
         public List<OrderVM> GetAll()
@@ -98,6 +99,24 @@ namespace CoffeeShopBLL.Services.Classes
 
             order.OrderStatus = status;
             _orderRepository.Save();
+
+         
+        }
+
+        public bool DeleteIfPending(int id)
+        {
+            var order = _orderRepository.GetOrderById(id);
+            if (order == null)
+                throw new Exception("Order not found.");
+
+            if (order.OrderStatus == OrderStatus.Pending)
+            {
+                _orderRepository.DeleteOrder(order.Id);
+                _orderRepository.Save();
+                return true;
+            }
+
+            return false; 
         }
 
     }

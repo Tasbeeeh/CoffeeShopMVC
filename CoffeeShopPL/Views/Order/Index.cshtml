@@ -47,6 +47,13 @@
                         <input type="hidden" name="id" value="@order.Id" />
                         <button class="btn btn-sm btn-danger">Delete</button>
                     </form>
+
+                    <form asp-action="DeleteIfPending" method="post" class="d-inline"
+                          onsubmit="return confirm('Are you sure you want to delete this order if it is pending?');">
+                        <input type="hidden" name="id" value="@order.Id" />
+                        <button class="btn btn-sm btn-danger">Delete if pending</button>
+                    </form>
+
                 </td>
             </tr>
         }
