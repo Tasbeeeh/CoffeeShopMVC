@@ -4,6 +4,7 @@ using CoffeeShopDAL.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoffeeShopDAL.Migrations
 {
     [DbContext(typeof(CoffeeShopDbContext))]
-    partial class CoffeeShopDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260207213446_update voucher")]
+    partial class updatevoucher
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -122,7 +125,7 @@ namespace CoffeeShopDAL.Migrations
 
                     b.HasIndex("VoucherId");
 
-                    b.ToTable("Carts", (string)null);
+                    b.ToTable("Carts");
                 });
 
             modelBuilder.Entity("CoffeeShopDAL.Entities.CartItem", b =>
@@ -143,7 +146,7 @@ namespace CoffeeShopDAL.Migrations
 
                     b.HasIndex("CartId");
 
-                    b.ToTable("CartItems", (string)null);
+                    b.ToTable("CartItems");
                 });
 
             modelBuilder.Entity("CoffeeShopDAL.Entities.Category", b =>
@@ -163,7 +166,7 @@ namespace CoffeeShopDAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("CoffeeShopDAL.Entities.Order", b =>
@@ -193,7 +196,7 @@ namespace CoffeeShopDAL.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Orders", (string)null);
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("CoffeeShopDAL.Entities.OrderItem", b =>
@@ -222,7 +225,7 @@ namespace CoffeeShopDAL.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("OrderItem", (string)null);
+                    b.ToTable("OrderItem");
                 });
 
             modelBuilder.Entity("CoffeeShopDAL.Entities.Product", b =>
@@ -259,7 +262,7 @@ namespace CoffeeShopDAL.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Products", (string)null);
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("CoffeeShopDAL.Entities.Voucher", b =>
@@ -288,7 +291,7 @@ namespace CoffeeShopDAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Vouchers", (string)null);
+                    b.ToTable("Vouchers");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -426,7 +429,7 @@ namespace CoffeeShopDAL.Migrations
 
             modelBuilder.Entity("CoffeeShopDAL.Entities.ApplicationUser", b =>
                 {
-                    b.OwnsOne("CoffeeShopDAL.Entities.ApplicationUser.Address#CoffeeShopDAL.Entities.Address", "Address", b1 =>
+                    b.OwnsOne("CoffeeShopDAL.Entities.Address", "Address", b1 =>
                         {
                             b1.Property<string>("ApplicationUserId")
                                 .HasColumnType("nvarchar(450)");
@@ -444,7 +447,7 @@ namespace CoffeeShopDAL.Migrations
 
                             b1.HasKey("ApplicationUserId");
 
-                            b1.ToTable("AspNetUsers", (string)null);
+                            b1.ToTable("AspNetUsers");
 
                             b1.WithOwner()
                                 .HasForeignKey("ApplicationUserId");

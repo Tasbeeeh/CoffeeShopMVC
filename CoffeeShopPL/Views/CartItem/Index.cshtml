@@ -3,6 +3,20 @@
 
 <h2>My Cart</h2>
 
+<!-- Add Product Form -->
+<h4>Add Product</h4>
+<form asp-action="Add" method="post">
+    <label>Product Id:</label>
+    <input type="number" name="ProductId" min="1" />
+    <label>Cart Id:</label>
+    <input type="number" name="CartId" min="1" />
+    <label>Quantity:</label>
+    <input type="number" name="Quantity" min="1" value="1" />
+    <button class="btn btn-success btn-sm">Add Item</button>
+</form>
+
+<hr />
+
 <table class="table table-bordered">
     <tr>
         <th>Product</th>
@@ -17,27 +31,23 @@
         <tr>
             <td>@item.ProductName</td>
             <td>
-                <form asp-action="UpdateQuantity" method="post">
+                <!-- Update Quantity Form -->
+                <form asp-action="Update" method="post" style="display:inline;">
                     <input type="hidden" name="cartId" value="@item.CartId" />
                     <input type="hidden" name="productId" value="@item.ProductId" />
-
-                    <input type="number" name="Quantity"
-                           value="@item.Quantity" min="1" />
-
-                    <button class="btn btn-sm btn-primary">Update</button>
+                    <input type="number" name="Quantity" value="@item.Quantity" min="1" style="width:60px;" />
+                    <button class="btn btn-primary btn-sm">Update</button>
                 </form>
             </td>
-
-            <td>@item.UnitPrice</td>
-            <td>@item.TotalPrice</td>
-
+            <td>@item.UnitPrice.ToString("0.00")</td>
+            <td>@item.TotalPrice.ToString("0.00")</td>
             <td>
-                <a asp-action="Delete"
-                   asp-route-cartId="@item.CartId"
-                   asp-route-productId="@item.ProductId"
-                   class="btn btn-sm btn-danger">
-                    Remove
-                </a>
+                <!-- Delete Form -->
+                <form asp-action="Delete" method="post" style="display:inline;">
+                    <input type="hidden" name="cartId" value="@item.CartId" />
+                    <input type="hidden" name="productId" value="@item.ProductId" />
+                    <button class="btn btn-danger btn-sm">Remove</button>
+                </form>
             </td>
         </tr>
     }

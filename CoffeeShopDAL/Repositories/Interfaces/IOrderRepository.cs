@@ -7,10 +7,17 @@ using System.Threading.Tasks;
 
 namespace CoffeeShopDAL.Repositories.Interfaces
 {
-    public interface IOrderRepository : IRepository<Order>
+    public interface IOrderRepository 
     {
         List<Order> GetOrdersByUserId(string userId);
         Order GetOrderWithItems(int orderId);
 
+
+        List<Order> GetAll();
+        Order? GetOrderById(int id);
+        void AddOrder(Order order); //manually for admins
+        void DeleteOrder(int id);
+        void UpdateOrder(Order order);
+        int Save();
     }
 }

@@ -1,6 +1,7 @@
-﻿using CoffeeShopBLL.ModelVMs.Cart;
 using CoffeeShopBLL.Services.Interfaces;
+﻿using CoffeeShopBLL.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace CoffeeShopPL.Controllers
 {
@@ -13,61 +14,86 @@ namespace CoffeeShopPL.Controllers
             _cartService = cartService;
         }
 
-        public IActionResult Index()
-        {
-            var carts = _cartService.GetAll();
-            return View(carts);
-        }
 
-        public IActionResult Details(int id = 4)
+
+
+
+        public IActionResult Details(int cartId)
         {
-            var cart = _cartService.GetById(id);
-            if (cart == null || !cart.Items.Any())
-                return View("EmptyCart"); 
+            var cart = _cartService.GetCartById(cartId);
+
+            if (cart == null)
+                return NotFound();
 
             return View(cart);
+        }
+        public IActionResult GoToCart()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(userId))
+                return RedirectToAction("Login", "Account"); 
+
+            var cartId = _cartService.GetLatestCartId(userId);
+
+            return Redirect($"/Cart/Details?cartId={cartId}");
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+        public IActionResult UserCart(string userId)
+        {
+            if (string.IsNullOrEmpty(userId))
+                return BadRequest();
+
+            var cart = _cartService.GetUserCart(userId);
+
+            return View("Details", cart);
         }
 
         [HttpPost]
-        public IActionResult Add(CartViewModel cart)
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(string userId)
         {
-            if (ModelState.IsValid)
-            {
-                _cartService.Add(cart);
-                _cartService.Save();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(cart);
+            if (string.IsNullOrEmpty(userId))
+                return BadRequest();
+
+            var cart = _cartService.CreateCart(userId);
+
+            return RedirectToAction("Details", new { cartId = cart.Id });
         }
 
         [HttpPost]
-        public IActionResult Update(CartViewModel cart)
+        [ValidateAntiForgeryToken]
+        public IActionResult Clear(int cartId)
         {
-            if (ModelState.IsValid)
-            {
-                _cartService.Edit(cart);
-                _cartService.Save();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(cart);
+            var success = _cartService.ClearCart(cartId);
+
+            if (!success)
+                return NotFound();
+
+            return RedirectToAction("Details", new { cartId });
         }
 
-        public IActionResult Delete(int id)
+        // POST: /Cart/Delete/1
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(int cartId)
         {
-            _cartService.Delete(id);
-            _cartService.Save();
-            return RedirectToAction(nameof(Index));
-        }
+            var success = _cartService.DeleteCart(cartId);
 
-        public IActionResult Clear()
-        {
-            var carts = _cartService.GetAll();
-            foreach (var cart in carts)
-            {
-                _cartService.Delete(cart.Id);
-            }
-            _cartService.Save();
-            return RedirectToAction(nameof(Index));
+            if (!success)
+                return NotFound();
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }

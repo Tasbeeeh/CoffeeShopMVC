@@ -1,4 +1,5 @@
 ﻿using CoffeeShopBLL.ModelVMs.Cart;
+using CoffeeShopBLL.ModelVMs.CartItem;
 using CoffeeShopDAL.Entities;
 using System;
 using System.Collections.Generic;
@@ -14,9 +15,20 @@ namespace CoffeeShopBLL.Mapping
         {
             return new CartViewModel
             {
+                Id = cart.Id,
                 TotalPrice = cart.TotalPrice,
                 CreatedAt = cart.CreatedAt,
+                UserId = cart.UserId,
+                CartItems = cart.CartItems?.Select(ci => new CartItemVM
+                {
+                    CartId = ci.CartId,
+                    ProductId = ci.ProductId,
+                    ProductName = ci.Product?.Name ?? "",
+                    Quantity = ci.Quantity,
+                    UnitPrice = ci.UnitPrice
+                }).ToList() ?? new List<CartItemVM>()
             };
         }
+
     }
 }

@@ -21,69 +21,111 @@ namespace CoffeeShopBLL.Services.Classes
             _cartRepository = cartRepository;
         }
 
-        public void Add(CartViewModel Obj)
+        public bool ClearCart(int cartId)
         {
+            var cart = _cartRepository.GetCartById(cartId);
+            if (cart == null) return false;
+
+            _cartRepository.ClearCart(cartId);
+
+            cart.TotalPrice = 0;
+            _cartRepository.Save();
+
+            return true;
+        }
+        public int GetLatestCartId(string userId)
+        {
+            var cart = _cartRepository.GetLatestCartByUser(userId);
+            if (cart == null)
+            {
+                return 0; 
+            }
+            return cart.Id;
+        }
+
+        public CartViewModel CreateCart(string userId)
+        {
+
             var cart = new Cart
             {
-                TotalPrice = Obj.TotalPrice,
-                CreatedAt = Obj.CreatedAt,
+                UserId = userId,
+                CreatedAt = DateTime.UtcNow,
+                TotalPrice = 0
             };
-            _cartRepository.Add(cart);
+
+            _cartRepository.CreateCart(cart);
+            _cartRepository.Save();
+            return cart.Cartviewmodel();
         }
 
-        public void Delete(int id)
+
+
+
+
+        public bool DeleteCart(int cartId)
         {
-            _cartRepository.Delete(id);
+            var cart = _cartRepository.GetCartById(cartId);
+            if (cart == null) return false;
+
+            _cartRepository.DeleteCart(cartId);
+
+            _cartRepository.Save();
+
+            return true;
         }
 
-        public void Edit(CartViewModel Obj)
+        public CartViewModel? GetCartById(int cartId)
         {
-            var cart = new Cart
-            {
-                TotalPrice = Obj.TotalPrice,
-                CreatedAt = Obj.CreatedAt,
-            };
-            _cartRepository.Edit(cart);
+            var cart = _cartRepository.GetCartById(cartId);
+            return cart == null ? null : cart.Cartviewmodel();
         }
 
-        public IEnumerable<CartViewModel> GetAll()
+        public CartViewModel? GetCartWithItems(string userId)
         {
-            var Carts = _cartRepository.GetAll();
-            if (Carts == null || !Carts.Any()) return [];
-            var CartssViewModels = Carts.Select(X => new CartViewModel
-            {
-                TotalPrice = X.TotalPrice,
-                CreatedAt = X.CreatedAt,
-            });
-            return CartssViewModels;
-        }
-
-        public CartViewModel GetById(int id)
-        {
-            var cart = _cartRepository.GetById(id);
+            var cart = _cartRepository.GetCartWithItems(userId);
             if (cart == null) return null;
 
-            var cartVM = new CartViewModel
-            {
-                Id = cart.Id,
-                TotalPrice = cart.TotalPrice,
-                CreatedAt = cart.CreatedAt,
-                Items = cart.CartItems.Select(x => new CartItemViewModel
-                {
-                    Id = x.CartId,
-                    ProductId = x.Product.Id,
-                    ProductName = x.Product.Name,
-                    Price = x.Product.Price,
-                    Quantity = x.Quantity
-                }).ToList()
-            };
+            if (cart.CartItems == null)
+                cart.CartItems = new List<CartItem>();
 
-            return cartVM;
+            UpdateCartTotalPrice(cart);
+            _cartRepository.Save();
+
+            return cart.Cartviewmodel();
         }
 
+        public CartViewModel GetUserCart(string userId)
+        {
+            var cart = _cartRepository.GetCartWithItems(userId);
+            if (cart == null)
+                return CreateCart(userId);
+
+            UpdateCartTotalPrice(cart);
+            _cartRepository.Save();
+
+            return cart.Cartviewmodel();
+        }
         public int Save()
         {
             return _cartRepository.Save();
         }
+
+        private void UpdateCartTotalPrice(Cart cart)
+        {
+            if (cart == null || cart.CartItems == null)
+                return;
+
+            decimal total = cart.CartItems.Sum(ci => ci.Quantity * ci.UnitPrice);
+
+            if (total > 5000)
+            {
+                total -= 200;
+            }
+
+            cart.TotalPrice = total;
+        }
+
+
+
     }
 }

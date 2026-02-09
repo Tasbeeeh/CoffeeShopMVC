@@ -14,6 +14,7 @@ namespace CoffeeShopDAL.Entities
         public DateTime CreatedAt { get; set; }
 
         //relations
+        public int? VoucherId { get; set; }
         public Voucher? Voucher { get; set; }
 
 
@@ -21,10 +22,8 @@ namespace CoffeeShopDAL.Entities
         [ForeignKey("User")]
         public string UserId { get; set; } = null!;
 
-        public ICollection<CartItem> CartItems { get; set; }
-
-        public Order Order { get; set; }
-        public int OrderId { get; set; }
+        public ICollection<CartItem> CartItems { get; set; } = new List<CartItem>();
+   
 
     }
 }

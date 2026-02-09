@@ -1,0 +1,10 @@
+﻿@model CoffeeShopDAL.Entities.Order
+
+<div class="text-center mt-5">
+    <h1 class="text-success">✅ Your Order is Confirmed!</h1>
+    <p>Order Number: <strong>@Model.Id</strong></p>
+    <p>Total Price: <strong>$@Model.TotalPrice.ToString("0.00")</strong></p>
+    <p>Order Date: <strong>@Model.OrderDate.ToString("dd MMM yyyy HH:mm")</strong></p>
+
+    <a href="@Url.Action("Index", "Home")" class="btn btn-primary mt-3">Back to Home</a>
+</div>

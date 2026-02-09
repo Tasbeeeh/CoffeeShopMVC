@@ -8,6 +8,7 @@ namespace CoffeeShopBLL.ModelVMs.CartItem
 {
     public class AddItemVM
     {
+        public int CartId { get; set; }
         public int ProductId { get; set; }
         public int Quantity { get; set; }
     }

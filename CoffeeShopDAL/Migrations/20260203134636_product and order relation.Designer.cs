@@ -4,6 +4,7 @@ using CoffeeShopDAL.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoffeeShopDAL.Migrations
 {
     [DbContext(typeof(CoffeeShopDbContext))]
-    partial class CoffeeShopDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260203134636_product and order relation")]
+    partial class productandorderrelation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -86,7 +89,7 @@ namespace CoffeeShopDAL.Migrations
 
                     b.ToTable("AspNetUsers", null, t =>
                         {
-                            t.HasCheckConstraint("EmailCheck", "Email Like '_%@_%._%'");
+                            t.HasCheckConstraint("EmailCheck", "Email Like '   _%@_%._%'");
 
                             t.HasCheckConstraint("PhoneCheck", "PhoneNumber LIKE '01%' AND PhoneNumber NOT LIKE '%[^0-9]%'");
                         });
@@ -112,17 +115,12 @@ namespace CoffeeShopDAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int?>("VoucherId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.HasIndex("VoucherId");
-
-                    b.ToTable("Carts", (string)null);
+                    b.ToTable("Carts");
                 });
 
             modelBuilder.Entity("CoffeeShopDAL.Entities.CartItem", b =>
@@ -143,7 +141,7 @@ namespace CoffeeShopDAL.Migrations
 
                     b.HasIndex("CartId");
 
-                    b.ToTable("CartItems", (string)null);
+                    b.ToTable("CartItems");
                 });
 
             modelBuilder.Entity("CoffeeShopDAL.Entities.Category", b =>
@@ -163,7 +161,7 @@ namespace CoffeeShopDAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("CoffeeShopDAL.Entities.Order", b =>
@@ -185,15 +183,17 @@ namespace CoffeeShopDAL.Migrations
                     b.Property<decimal>("TotalPrice")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId1")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId1");
 
-                    b.ToTable("Orders", (string)null);
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("CoffeeShopDAL.Entities.OrderItem", b =>
@@ -222,7 +222,7 @@ namespace CoffeeShopDAL.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("OrderItem", (string)null);
+                    b.ToTable("OrderItem");
                 });
 
             modelBuilder.Entity("CoffeeShopDAL.Entities.Product", b =>
@@ -259,7 +259,7 @@ namespace CoffeeShopDAL.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Products", (string)null);
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("CoffeeShopDAL.Entities.Voucher", b =>
@@ -270,25 +270,34 @@ namespace CoffeeShopDAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("CartId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Code")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("DiscountAmount")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
 
                     b.Property<DateTime>("ExpirationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsActive")
+                    b.Property<bool>("IsValid")
                         .HasColumnType("bit");
 
-                    b.Property<decimal>("MinimumCartTotal")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Vouchers", (string)null);
+                    b.HasIndex("CartId")
+                        .IsUnique();
+
+                    b.ToTable("Vouchers");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -426,7 +435,7 @@ namespace CoffeeShopDAL.Migrations
 
             modelBuilder.Entity("CoffeeShopDAL.Entities.ApplicationUser", b =>
                 {
-                    b.OwnsOne("CoffeeShopDAL.Entities.ApplicationUser.Address#CoffeeShopDAL.Entities.Address", "Address", b1 =>
+                    b.OwnsOne("CoffeeShopDAL.Entities.Address", "Address", b1 =>
                         {
                             b1.Property<string>("ApplicationUserId")
                                 .HasColumnType("nvarchar(450)");
@@ -444,13 +453,14 @@ namespace CoffeeShopDAL.Migrations
 
                             b1.HasKey("ApplicationUserId");
 
-                            b1.ToTable("AspNetUsers", (string)null);
+                            b1.ToTable("AspNetUsers");
 
                             b1.WithOwner()
                                 .HasForeignKey("ApplicationUserId");
                         });
 
-                    b.Navigation("Address");
+                    b.Navigation("Address")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("CoffeeShopDAL.Entities.Cart", b =>
@@ -461,13 +471,7 @@ namespace CoffeeShopDAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CoffeeShopDAL.Entities.Voucher", "Voucher")
-                        .WithMany()
-                        .HasForeignKey("VoucherId");
-
                     b.Navigation("User");
-
-                    b.Navigation("Voucher");
                 });
 
             modelBuilder.Entity("CoffeeShopDAL.Entities.CartItem", b =>
@@ -493,9 +497,7 @@ namespace CoffeeShopDAL.Migrations
                 {
                     b.HasOne("CoffeeShopDAL.Entities.ApplicationUser", "User")
                         .WithMany("Orders")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId1");
 
                     b.Navigation("User");
                 });
@@ -528,6 +530,17 @@ namespace CoffeeShopDAL.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("CoffeeShopDAL.Entities.Voucher", b =>
+                {
+                    b.HasOne("CoffeeShopDAL.Entities.Cart", "Cart")
+                        .WithOne("Voucher")
+                        .HasForeignKey("CoffeeShopDAL.Entities.Voucher", "CartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cart");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -592,6 +605,8 @@ namespace CoffeeShopDAL.Migrations
             modelBuilder.Entity("CoffeeShopDAL.Entities.Cart", b =>
                 {
                     b.Navigation("CartItems");
+
+                    b.Navigation("Voucher");
                 });
 
             modelBuilder.Entity("CoffeeShopDAL.Entities.Category", b =>

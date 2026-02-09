@@ -16,34 +16,74 @@
 
     <!-- Navbar -->
     <nav class="gr-navbar">
+       
         <div class="logo">
             ☕ <strong>Golden Roast</strong>
     
         </div>
 
         <ul class="nav-links">
-            <li><a asp-controller="Home" asp-action="Index">Home</a></li>
-            <li><a asp-controller="Category" asp-action="Index">Categories</a></li>
-            <li><a asp-controller="Product" asp-action="Browse">Products</a></li>
-            <li><a asp-controller="Cart" asp-action="Index">Cart</a></li>
-            <li><a asp-controller="Order" asp-action="myorders">Orders</a></li>
+            <li>
+                <a asp-controller="Home" asp-action="Index">Home</a>
+            </li>
+
+            <li>
+                @if (User.IsInRole("Admin"))
+                {
+                    <a asp-controller="Category" asp-action="Index">Categories</a>
+                }
+                else
+                {
+                    <a asp-controller="Category" asp-action="Browse">Categories</a>
+                }
+            </li>
+
+            <li>
+                @if (User.IsInRole("Admin"))
+                {
+                    <a asp-controller="Product" asp-action="Index">Products</a>
+                }
+                else
+                {
+                    <a asp-controller="Product" asp-action="Browse">Products</a>
+                }
+            </li>
+
+            <li>
+                @if (User.IsInRole("Admin"))
+                {
+                }
+                else
+                {
+                    <a asp-controller="Cart" asp-action="GoToCart">Cart</a>
+                }
+            </li>
+
+            <li>
+                @if (User.IsInRole("Admin"))
+                {
+                    <a asp-controller="Order" asp-action="Index">Orders</a>
+                }
+                else
+                {
+                    <a asp-controller="Order" asp-action="MyOrders">Orders</a>
+                }
+            </li>
         </ul>
 
         <div class="nav-actions d-flex align-items-center">
-            @if (User.Identity.IsAuthenticated)
-            {
-                <a href="@Url.Action("Index", "Cart")" class="me-3">
-                    <i class="cart fa-solid fa-cart-shopping"></i>
-                </a>
-            }
+           
 
       
 
             @if (User.Identity.IsAuthenticated)
             {
+                <p>Welcome, @User.Identity.Name</p>
+
                 <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
                     <button type="submit" class="btn-outline btn-logout">Logout</button>
                 </form>
+
             }
             else
             {

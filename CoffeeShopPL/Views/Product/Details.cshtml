@@ -56,7 +56,7 @@
                   asp-action="Add"
                   method="post"
                   onsubmit="showCartToast()">
-                <input type="hidden" name="cartId" value="4" />
+                <input type="hidden" name="cartId" value="@Model.CategoryId" />
                 <input type="hidden" name="vm.ProductId" value="@Model.Id" />
                 <input type="hidden" name="vm.Quantity" id="hiddenQty" value="1" />
                 <button type="submit" class="btn btn-dark btn-add-cart w-100" style="border-radius: 20px; padding: 15px 0px">

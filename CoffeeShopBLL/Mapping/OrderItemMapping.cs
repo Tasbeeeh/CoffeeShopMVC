@@ -1,27 +1,33 @@
 ﻿using CoffeeShopBLL.ModelVMs.Order;
 using CoffeeShopBLL.ModelVMs.OrderItem;
 using CoffeeShopDAL.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace CoffeeShopBLL.Mapping
 {
-    public static class OrderMapping
+    public static class OrderItemMapping
     {
-        public static OrderVM orderVM(this Order order)
+        public static OrderVM ToVM(this Order order)
         {
             return new OrderVM
             {
                 Id = order.Id,
                 UserId = order.UserId,
-                TotalPrice = order.TotalPrice,
-                OrderDate = order.OrderDate,
                 OrderStatus = order.OrderStatus,
-                Items = order.OrderItems?.Select(oi => new OrderItemVM
+                OrderDate = order.OrderDate,
+                TotalPrice = order.TotalPrice,
+                Items = order.OrderItems.Select(oi => new OrderItemVM
                 {
                     ProductName = oi.Product.Name,
                     Quantity = oi.Quantity,
                     UnitPrice = oi.UnitPrice
-                }).ToList() ?? new List<OrderItemVM>()
+                }).ToList()
             };
         }
+
     }
 }

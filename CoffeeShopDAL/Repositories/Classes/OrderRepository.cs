@@ -16,34 +16,35 @@ namespace CoffeeShopDAL.Repositories.Classes
             _context = context;
         }
 
-        public void Add(Order order)
+        public void AddOrder(Order order)
         {
             _context.Orders.Add(order);
         }
 
-        public void Delete(int id)
+        public void DeleteOrder(int id)
         {
-            var order = GetById(id);
+            var order = GetOrderById(id);
             if (order != null)
                 _context.Orders.Remove(order);
         }
 
-        public void Edit(Order order)
-        {
-            _context.Orders.Update(order);
-        }
+       
 
         public List<Order> GetAll()
         {
             return _context.Orders
-                .Include(o => o.User)
-                .Include(o => o.Cart)
+                .Include(o => o.OrderItems)
+                .ThenInclude(p=>p.Product)
+                .OrderByDescending(o => o.OrderDate)
                 .ToList();
         }
 
-        public Order GetById(int id)
+        public Order? GetOrderById(int id)
         {
-            return _context.Orders.Find(id)!;
+            return _context.Orders
+                .Include(o => o.OrderItems)
+                .ThenInclude(p => p.Product)
+                .SingleOrDefault(o=>o.Id==id);
         }
 
         public List<Order> GetOrdersByUserId(string userId)
@@ -56,16 +57,20 @@ namespace CoffeeShopDAL.Repositories.Classes
         public Order GetOrderWithItems(int orderId)
         {
             return _context.Orders
-                .Include(o => o.Cart)
-                    .ThenInclude(c => c.CartItems)
-                        .ThenInclude(ci => ci.Product)
-                .FirstOrDefault(o => o.Id == orderId)!;
+                .Include(o => o.OrderItems)
+            .ThenInclude(oi => oi.Product)
+        .FirstOrDefault(o => o.Id == orderId);
         }
 
 
         public int Save()
         {
             return _context.SaveChanges();
+        }
+
+        public void UpdateOrder(Order order)
+        {
+            _context.Orders.Update(order);
         }
     }
 }

@@ -9,6 +9,7 @@ namespace CoffeeShopDAL.Entities.Enums
     public enum OrderStatus
     {
         Pending, 
-        Confirmed
+        Confirmed,
+        Cancelled
     }
 }

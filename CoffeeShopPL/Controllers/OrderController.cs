@@ -2,6 +2,9 @@
 using CoffeeShopBLL.Services.Interfaces;
 using CoffeeShopDAL.Entities;
 using Microsoft.AspNetCore.Identity;
+
+using CoffeeShopDAL.Entities.Enums;
+using CoffeeShopDAL.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CoffeeShopPL.Controllers
@@ -10,19 +13,24 @@ namespace CoffeeShopPL.Controllers
     {
         private readonly IOrderService _orderService;
         private readonly UserManager<ApplicationUser> _userManager;
-
-        public OrderController(IOrderService orderService, UserManager<ApplicationUser> userManager)
+        private readonly ICartService _cartService;
+        private readonly IOrderRepository _orderRepository;
+        public OrderController(IOrderService orderService, ICartService cartService, IOrderRepository orderRepository, UserManager<ApplicationUser> userManager)
         {
             _orderService = orderService;
+            _cartService = cartService;
+            _orderRepository = orderRepository;
             _userManager = userManager;
 
         }
+
+        // GET: /Order
         public IActionResult Index()
         {
-            //var orders = _orderService.GetAll();
+            var orders = _orderService.GetAll();
             //return View(orders);
-            var userId = _userManager.GetUserId(User);
-            var orders = _orderService.GetUserOrders(userId);
+            //var userId = _userManager.GetUserId(User);
+            //var orders = _orderService.GetUserOrders(userId);
             return View(orders); 
         }
         public IActionResult MyOrders()
@@ -43,52 +51,129 @@ namespace CoffeeShopPL.Controllers
             return View(orderDetails);
         }
 
-        [HttpGet]
-        public IActionResult Create()
-        {
-            return View();
-        }
 
+        // GET: /Order/Details/1
+        //public IActionResult Details(int id)
+        //{
+        //    var order = _orderService.GetById(id);
+        //    if (order == null)
+        //        return NotFound();
+
+        //    return View(order);
+        //}
+
+        // POST: /Order/PlaceOrder
         [HttpPost]
-        public IActionResult Create(OrderVM orderVM)
+        [ValidateAntiForgeryToken]
+        public IActionResult PlaceOrder(string userId)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _orderService.Add(orderVM);
-                _orderService.Save();
-                return RedirectToAction(nameof(Index));
+                var cart = _cartService.GetCartWithItems(userId);
+
+                if (cart == null || !cart.CartItems.Any())
+                {
+                    TempData["Error"] = "Cart is empty!";
+                    return RedirectToAction("Index", "Cart");
+                }
+
+                Order order = new Order()
+                {
+                    UserId = userId,
+                    OrderDate = DateTime.Now,
+                    TotalPrice = cart.CartItems.Sum(ci => ci.Quantity * ci.UnitPrice),
+                    OrderStatus = OrderStatus.Pending,
+                    OrderItems = new List<OrderItem>()
+                };
+
+                foreach (var ci in cart.CartItems)
+                {
+                    var orderItem = new OrderItem
+                    {
+                        ProductId = ci.ProductId,
+                        Quantity = ci.Quantity,
+                        UnitPrice = ci.UnitPrice
+                    };
+                    order.OrderItems.Add(orderItem);
+                }
+
+                _orderRepository.AddOrder(order);
+                _orderRepository.Save();
+
+                _cartService.ClearCart(cart.Id);
+
+                return RedirectToAction("Confirmed", "Order", new { orderId = order.Id });
             }
-            return View(orderVM);
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+                return RedirectToAction("Index", "Cart");
+            }
         }
 
+        public IActionResult Confirmed(int orderId)
+        {
+            var order = _orderRepository.GetOrderById(orderId);
+            if (order == null)
+                return NotFound();
+
+            return View(order);
+        }
+
+
+        // POST: /Order/ChangeStatus/1
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ChangeStatus(int orderId, string status)
+        {
+            if (!Enum.TryParse<OrderStatus>(status, out var newStatus))
+            {
+                TempData["Error"] = "Invalid status";
+                return RedirectToAction("Index");
+            }
+
+            _orderService.ChangeOrderStatus(orderId, newStatus);
+            return RedirectToAction("Index");
+        }
+
+
+        // POST: /Order/Delete/1
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Delete(int id)
         {
-            _orderService.Delete(id);
-            _orderService.Save();
-            return RedirectToAction(nameof(Index));
-        }
-
-        [HttpGet]
-        public IActionResult Edit(int id)
-        {
-            var orderVM = _orderService.GetById(id);
-            if (orderVM == null)
+            try
             {
-                return NotFound();
+                _orderService.Delete(id);
+                return RedirectToAction("MyOrders");
             }
-            return View(orderVM);
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+                return RedirectToAction("Index");
+            }
         }
 
         [HttpPost]
-        public IActionResult Edit(OrderVM orderVM)
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteIfPending(int id)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _orderService.Edit(orderVM);
-                _orderService.Save();
-                return RedirectToAction(nameof(Index));
+                bool deleted = _orderService.DeleteIfPending(id);
+                if (deleted)
+                    TempData["Success"] = "Order deleted successfully.";
+                else
+                    TempData["Error"] = "Order cannot be deleted because it is Confirmed.";
+
+                return RedirectToAction("Index");
             }
-            return View(orderVM);
+            catch (Exception ex)
+            {
+                TempData["Error"] = ex.Message;
+                return RedirectToAction("Index");
+            }
         }
+
     }
 }

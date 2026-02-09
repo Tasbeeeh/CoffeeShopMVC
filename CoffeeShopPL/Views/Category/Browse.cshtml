@@ -1,0 +1,55 @@
+﻿
+
+@model IEnumerable<CoffeeShopBLL.ModelVMs.Category.CategoryVM>
+
+<link rel="stylesheet" href="~/css/category.css" />
+
+<!-- ================= CATEGORIES ================= -->
+<section class="categories">
+    <h2>Categories</h2>
+    <p class="subtitle">Explore our carefully curated selection of coffee and treats</p>
+
+    <div class="categories-grid">
+
+        <!-- Espresso -->
+        <a asp-controller="Product"
+           asp-action="Category"
+           asp-route-categoryName="coffee1" class="category-card">
+            
+            <img src="~/images/img2.jpeg" alt="Espresso" />
+            <div class="overlay">
+                <h3>Espresso</h3>
+                <span class="explore">Explore →</span>
+            </div>
+        </a>
+
+        <!-- Cold Brew -->
+        <a asp-controller="Product" asp-action="ByCategory" asp-route-categoryId="2" class="category-card">
+            <img src="~/images/img3.jpeg" alt="Cold Brew" />
+            <div class="overlay">
+                <h3>Cold Brew</h3>
+                <span class="explore">Explore →</span>
+            </div>
+        </a>
+
+        <!-- Hot Drinks -->
+        <a asp-controller="Product" asp-action="ByCategory" asp-route-categoryId="3" class="category-card">
+            <img src="~/images/img1.jpeg" alt="Hot Drinks" />
+            <div class="overlay">
+                <h3>Hot Drinks</h3>
+                <span class="explore">Explore →</span>
+            </div>
+        </a>
+
+        <!-- Pastries -->
+        <a asp-controller="Product" asp-action="ByCategory" asp-route-categoryId="4" class="category-card">
+            <img src="~/images/img4.jpeg" alt="Pastries" />
+            <div class="overlay">
+                <h3>Pastries</h3>
+                <span class="explore">Explore →</span>
+            </div>
+        </a>
+
+    </div>
+</section>
+

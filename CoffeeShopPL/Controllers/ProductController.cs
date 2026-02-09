@@ -3,6 +3,7 @@ using CoffeeShopBLL.Services.Classes;
 using CoffeeShopBLL.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Security.Claims;
 
 namespace CoffeeShopPL.Controllers
 {
@@ -10,11 +11,13 @@ namespace CoffeeShopPL.Controllers
     {
         private readonly IProductService _productService;
         private readonly ICategoryService _categoryService;
+        private readonly ICartService _cartService;
 
-        public ProductController(IProductService productService, ICategoryService categoryService)
+        public ProductController(IProductService productService, ICategoryService categoryService,ICartService cartService)
         {
             _productService = productService;
             _categoryService = categoryService;
+            _cartService   = cartService;
         }
 
         public IActionResult Index(string? searchTerm, string? categoryName, int pageNumber = 1, int pageSize = 10)
@@ -116,8 +119,22 @@ namespace CoffeeShopPL.Controllers
 
             if (product == null)
                 return NotFound();
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); 
+            var cart = _cartService.GetUserCart(userId);
+            var vm = new CoffeeShopBLL.ModelVMs.Product.ProductVM
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Image = product.Image,
+                CategoryName = product.CategoryName,
+                Price = product.Price,
+                Quantity = product.Quantity,
+                ProductSize = product.ProductSize,
+                CategoryId = cart.Id 
+            };
 
-            return View("Details",product);
+
+            return View("Details",vm);
         }
 
 
