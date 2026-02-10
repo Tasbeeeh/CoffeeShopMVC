@@ -11,44 +11,59 @@
 
     <div class="categories-grid">
 
-        <!-- Espresso -->
+        <!-- Coffee -->
         <a asp-controller="Product"
            asp-action="Category"
-           asp-route-categoryName="coffee1" class="category-card">
+           asp-route-categoryName="Coffee" class="category-card">
             
-            <img src="~/images/img2.jpeg" alt="Espresso" />
+            <img src="~/images/coffee.jpg" alt="Coffee" />
             <div class="overlay">
-                <h3>Espresso</h3>
+                <h3>Coffee</h3>
                 <span class="explore">Explore →</span>
             </div>
         </a>
 
         <!-- Cold Brew -->
-        <a asp-controller="Product" asp-action="ByCategory" asp-route-categoryId="2" class="category-card">
-            <img src="~/images/img3.jpeg" alt="Cold Brew" />
+        <a asp-controller="Product"
+           asp-action="Category"
+           asp-route-categoryName="Tea" class="category-card">
+            <img src="~/images/tea.jpg" alt="Tea" />
             <div class="overlay">
-                <h3>Cold Brew</h3>
+                <h3>Tea</h3>
                 <span class="explore">Explore →</span>
             </div>
         </a>
 
         <!-- Hot Drinks -->
-        <a asp-controller="Product" asp-action="ByCategory" asp-route-categoryId="3" class="category-card">
-            <img src="~/images/img1.jpeg" alt="Hot Drinks" />
+        <a asp-controller="Product"
+           asp-action="Category"
+           asp-route-categoryName="Dessert" class="category-card">
+            <img src="~/images/dessert.jpg" alt="Dessert" />
             <div class="overlay">
-                <h3>Hot Drinks</h3>
+                <h3>Dessert</h3>
                 <span class="explore">Explore →</span>
             </div>
         </a>
 
         <!-- Pastries -->
-        <a asp-controller="Product" asp-action="ByCategory" asp-route-categoryId="4" class="category-card">
-            <img src="~/images/img4.jpeg" alt="Pastries" />
+        <a asp-controller="Product"
+           asp-action="Bakery"
+           asp-route-categoryName="Bakery" class="category-card">
+            <img src="~/images/bakery.jpg" alt="Bakery" />
             <div class="overlay">
-                <h3>Pastries</h3>
+                <h3>Bakery</h3>
                 <span class="explore">Explore →</span>
             </div>
         </a>
+        @* <a asp-controller="Product"
+           asp-action="Drinks"
+           asp-route-categoryName="Drinks" class="category-card">
+            <img src="~/images/drinks.jpg" alt="Drinks" />
+            <div class="overlay">
+                <h3>Drinks</h3>
+                <span class="explore">Explore →</span>
+            </div>
+        </a> *@
 
     </div>
 </section>

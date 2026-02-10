@@ -95,8 +95,7 @@ namespace CoffeeShopPL.Controllers
             {
                 imgName = Guid.NewGuid().ToString() + Path.GetExtension(img.FileName);
                 string folder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot",
-                                "assets",
-                                "img");
+                                "images");
                 string fullPath = Path.Combine(folder, imgName);
 
                 using (var stream = new FileStream(fullPath, FileMode.Create))
