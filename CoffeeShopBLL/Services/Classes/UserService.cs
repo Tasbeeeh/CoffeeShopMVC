@@ -14,12 +14,15 @@ namespace CoffeeShopBLL.Services.Classes
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ICartService _cartService;
 
         public UserService(UserManager<ApplicationUser> userManager,
-                           SignInManager<ApplicationUser> signInManager)
+                           SignInManager<ApplicationUser> signInManager,
+                           ICartService cartService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _cartService = cartService;
         }
 
         public async Task<IdentityResult> CreateUserAsync(RegisterVM model)
@@ -46,7 +49,15 @@ namespace CoffeeShopBLL.Services.Classes
             if (user == null)
                 return SignInResult.Failed;
 
-            return await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
+
+
+            var result= await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
+            if (result.Succeeded)
+            {
+
+                _cartService.GetUserCart(user.Id);
+            }
+            return result;
         }
         public async Task LogoutAsync()
         {
